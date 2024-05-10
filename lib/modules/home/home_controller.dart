@@ -12,6 +12,14 @@ class HomeController extends GetxController {
   final isSearch = false.obs;
   final localFilter = ''.obs;
 
+  final _games = <GameModel>[].obs;
+  List<GameModel> get games {
+    final list = _games.where((g) => g.state == pageGameState.value);
+    return list.where((g) {
+      return g.name.toLowerCase().contains(localFilter.value.toLowerCase());
+    }).toList();
+  }
+
   Future<List<GameModel>> searchGames({required String q}) async {
     if (q.trim().isEmpty) return [];
 
@@ -20,5 +28,22 @@ class HomeController extends GetxController {
     } catch (e) {
       return [];
     }
+  }
+
+  void openSteamGamesList() {
+    final s = gameService.gamesStream();
+    s?.listen((g) {
+      _games.assignAll(g);
+    });
+  }
+
+  Future<void> saveGame(GameModel game) {
+    return gameService.saveGame(game: game);
+  }
+
+  @override
+  void onReady() {
+    openSteamGamesList();
+    super.onReady();
   }
 }
