@@ -7,14 +7,35 @@ import 'package:get/get.dart';
 
 Future<void> main() async {
   await AppInitialize.initialize();
+
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class MyApp extends StatefulWidget {
+  final bool hasUser;
+  MyApp({super.key, this.hasUser = false});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final theme = FastTheme(seed: Colors.deepPurpleAccent);
-  final user = FirebaseAuth.instance.currentUser;
+
+  bool hasUser = false;
+
+  @override
+  void initState() {
+    FirebaseAuth.instance.userChanges().listen((user) {
+      if (user != null) {
+        Get.offAllNamed(AppPages.home);
+      } else {
+        Get.offAllNamed(AppPages.signIn);
+      }
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +43,7 @@ class MyApp extends StatelessWidget {
       title: 'Game Notation',
       darkTheme: theme.dark,
       theme: theme.light,
-      initialRoute: user != null ? AppPages.home : AppPages.signIn,
+      initialRoute: widget.hasUser ? AppPages.home : AppPages.signIn,
       getPages: AppPages.pages,
     );
   }

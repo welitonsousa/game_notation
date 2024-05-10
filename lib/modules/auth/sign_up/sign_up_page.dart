@@ -1,16 +1,107 @@
+import 'package:fast_ui_kit/ui/widgets/button.dart';
+import 'package:fast_ui_kit/ui/widgets/form_field.dart';
+import 'package:game_notion/core/ui/app_state.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import './sign_up_controller.dart';
 
-class SignUpPage extends GetView<SignUpController> {
-    
-    const SignUpPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
-    @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            appBar: AppBar(title: const Text('SignUpPage'),),
-            body: Container(),
-        );
-    }
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends AppState<SignUpPage, SignUpController> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final password2Controller = TextEditingController();
+  final form = GlobalKey<FormState>();
+
+  @override
+  dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    password2Controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Login')),
+      body: ListView(
+        children: [
+          Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 400),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: context.theme.cardColor,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Form(
+                key: form,
+                child: Column(
+                  children: [
+                    FastFormField(
+                      label: 'E-mail',
+                      validator: Zod().email().build,
+                      controller: emailController,
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 10),
+                    FastFormField(
+                      label: 'Senha',
+                      validator: Zod().min(6).build,
+                      controller: passwordController,
+                      isPassword: true,
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 10),
+                    FastFormField(
+                      label: 'Confirme a senha',
+                      validator: Zod()
+                          .min(6)
+                          .custom(
+                              (p) =>
+                                  passwordController.text ==
+                                  password2Controller.text,
+                              errorMessage: 'As senhas não conferem')
+                          .build,
+                      controller: password2Controller,
+                      isPassword: true,
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 10),
+                    Obx(() {
+                      return FastButton(
+                        label: 'Cadastrar',
+                        loading: controller.loading.value,
+                        onPressed: () {
+                          if (form.currentState!.validate()) {
+                            controller.signUp(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
+                          }
+                        },
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
