@@ -27,4 +27,15 @@ enum GameState {
       paused => FastIcons.awesome.clock_o
     };
   }
+
+  static GameState? fromId(int? id) {
+    return switch (id) {
+      0 => playing,
+      1 => finished,
+      2 => wishlist,
+      3 => platinum,
+      4 => paused,
+      _ => null,
+    };
+  }
 }

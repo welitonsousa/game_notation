@@ -10,7 +10,7 @@
 .svn/
 migrate_working_dir/
 firebase.json
-
+*env.dart
 # IntelliJ related
 *.iml
 *.ipr

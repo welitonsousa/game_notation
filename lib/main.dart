@@ -8,12 +8,11 @@ import 'package:get/get.dart';
 Future<void> main() async {
   await AppInitialize.initialize();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  final bool hasUser;
-  MyApp({super.key, this.hasUser = false});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -21,8 +20,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final theme = FastTheme(seed: Colors.deepPurpleAccent);
-
-  bool hasUser = false;
 
   @override
   void initState() {
@@ -43,7 +40,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Game Notation',
       darkTheme: theme.dark,
       theme: theme.light,
-      initialRoute: widget.hasUser ? AppPages.home : AppPages.signIn,
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppPages.signIn,
       getPages: AppPages.pages,
     );
   }
