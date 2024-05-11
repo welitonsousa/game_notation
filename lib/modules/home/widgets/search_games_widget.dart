@@ -73,6 +73,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                               onTap: focus.unfocus,
                               child: Icon(FastIcons.awesome.close)),
                           hintText: 'Pesquisar',
+                          filled: true,
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
@@ -128,7 +129,10 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
               onPressed: () {
                 controller.isSearch.value = !controller.isSearch.value;
               },
-              label: const Text('Game'),
+              label: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: Text(' Game'),
+              ),
               icon: Icon(FastIcons.awesome.gamepad),
             )
         ],

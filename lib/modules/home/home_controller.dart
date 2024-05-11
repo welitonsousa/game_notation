@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/models/game_model.dart';
 import 'package:game_notion/remote/services/games/games_sevice.dart';
@@ -26,6 +28,7 @@ class HomeController extends GetxController {
     try {
       return await gameService.searchGames(q: q);
     } catch (e) {
+      log(e.toString());
       return [];
     }
   }

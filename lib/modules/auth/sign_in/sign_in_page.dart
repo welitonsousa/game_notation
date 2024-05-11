@@ -67,6 +67,7 @@ class _SignInPageState extends State<SignInPage> {
                     FastFormField(
                       label: 'E-mail',
                       validator: Zod().email().build,
+                      textInputAction: TextInputAction.next,
                       controller: emailController,
                       textInputType: TextInputType.emailAddress,
                     ),
@@ -76,6 +77,15 @@ class _SignInPageState extends State<SignInPage> {
                       validator: Zod().min(6).build,
                       controller: passwordController,
                       isPassword: true,
+                      onEditingComplete: () {
+                        if (form.currentState!.validate()) {
+                          Get.focusScope?.unfocus();
+                          controller.signIn(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                        }
+                      },
                       textInputType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 10),
@@ -85,6 +95,7 @@ class _SignInPageState extends State<SignInPage> {
                         loading: controller.loading.value,
                         onPressed: () {
                           if (form.currentState!.validate()) {
+                            Get.focusScope?.unfocus();
                             controller.signIn(
                               email: emailController.text,
                               password: passwordController.text,

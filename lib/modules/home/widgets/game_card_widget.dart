@@ -57,6 +57,7 @@ class GameCardWidget extends StatelessWidget {
                       color: context.theme.primaryColor,
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(1000),
+                        topRight: Radius.circular(200),
                       ),
                     ),
                     child: Icon(
