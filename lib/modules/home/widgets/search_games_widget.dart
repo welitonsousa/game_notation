@@ -69,17 +69,15 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                       focusNode: focus,
                       autofocus: true,
                       decoration: InputDecoration(
-                          suffixIcon: GestureDetector(
-                              onTap: focus.unfocus,
-                              child: Icon(FastIcons.awesome.close)),
-                          hintText: 'Pesquisar',
-                          filled: true,
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          )),
+                        suffixIcon: GestureDetector(
+                            onTap: focus.unfocus,
+                            child: Icon(FastIcons.awesome.close)),
+                        hintText: 'Pesquisar',
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
                     );
                   },
                   suggestionsCallback: (v) async {

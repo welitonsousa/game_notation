@@ -80,25 +80,33 @@ class __SearchAppBarState extends State<_SearchAppBar> {
             if (searching)
               Expanded(
                 child: Container(
-                  margin: const EdgeInsets.only(top: 5, left: 5, right: 5),
+                  margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
                   child: FastAnimate(
+                    duration: const Duration(milliseconds: 1000),
                     type: widget.animated
-                        ? FastAnimateType.fadeInRightBig
+                        ? FastAnimateType.elasticInRight
                         : FastAnimateType.none,
-                    child: FastFormField(
-                      hint: widget.hint,
-                      autoFocus: true,
+                    child: TextFormField(
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        filled: true,
+                        hintText: widget.hint,
+                        contentPadding: const EdgeInsets.all(10),
+                        suffix: IconButton(
+                          icon: Icon(FastIcons.awesome.close),
+                          onPressed: () {
+                            widget.onSearch?.call('');
+                            setState(() => searching = false);
+                          },
+                        ),
+                      ),
                       textInputAction: TextInputAction.search,
                       onChanged: (v) => FastDebounce.call(
                         action: () => widget.onSearch?.call(v),
                         milliseconds: widget.debounceTime,
-                      ),
-                      suffix: IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          widget.onSearch?.call('');
-                          setState(() => searching = false);
-                        },
                       ),
                     ),
                   ),
