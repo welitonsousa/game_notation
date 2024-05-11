@@ -16,10 +16,12 @@ class HomeController extends GetxController {
 
   final allGames = <GameModel>[].obs;
   List<GameModel> get games {
-    final list = allGames.where((g) => g.state == pageGameState.value);
-    return list.where((g) {
+    var list = allGames.where((g) => g.state == pageGameState.value);
+    list = list.where((g) {
       return g.name.toLowerCase().contains(localFilter.value.toLowerCase());
-    }).toList();
+    });
+    list = list.toList()..sort((a, b) => a.name.compareTo(b.name));
+    return list.toList();
   }
 
   Future<List<GameModel>> searchGames({required String q}) async {

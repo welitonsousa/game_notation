@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:game_notion/core/extensions/string_ext.dart';
 import 'package:game_notion/models/game_external_model.dart';
+import 'package:game_notion/routers/pages.dart';
+import 'package:get/get.dart';
 
 class ListSimilarGames extends StatelessWidget {
   final List<ExternalGameModel> similarGames;
@@ -14,7 +16,13 @@ class ListSimilarGames extends StatelessWidget {
         itemBuilder: (context, index) {
           final g = similarGames[index];
           return GestureDetector(
-            onTap: () async {},
+            onTap: () async {
+              await Get.toNamed(
+                "${AppPages.gameDetail}/${g.id}",
+                arguments: g.id,
+                preventDuplicates: false,
+              );
+            },
             child: Container(
               margin: const EdgeInsets.only(right: 8),
               width: 200,

@@ -1,5 +1,6 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:fast_ui_kit/icons/icons.dart';
+import 'package:fast_ui_kit/ui/widgets/animate.dart';
 import 'package:game_notion/core/extensions/string_ext.dart';
 import 'package:game_notion/core/ui/widgets/app_error.dart';
 import 'package:game_notion/core/ui/widgets/app_image.dart';
@@ -11,8 +12,29 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import './game_detail_controller.dart';
 
-class GameDetailPage extends GetView<GameDetailController> {
+class GameDetailPage extends StatefulWidget {
   const GameDetailPage({super.key});
+
+  @override
+  State<GameDetailPage> createState() => _GameDetailPageState();
+}
+
+class _GameDetailPageState extends State<GameDetailPage> {
+  late final GameDetailController controller;
+
+  @override
+  void initState() {
+    final gameId = Get.parameters['id'];
+    Get.put(
+      tag: gameId,
+      GameDetailController(
+        gameService: Get.find(),
+        homeController: Get.find(),
+      ),
+    );
+    controller = Get.find<GameDetailController>(tag: gameId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +83,11 @@ class GameDetailPage extends GetView<GameDetailController> {
                           child: Text(controller.game.value!.name,
                               style: const TextStyle(fontSize: 24)),
                         ),
-                        GameStateWidget(),
+                        if (controller.gameState != null)
+                          GameStateWidget(
+                            onChange: controller.changeGameState,
+                            state: controller.gameState!,
+                          ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -118,11 +144,26 @@ class GameDetailPage extends GetView<GameDetailController> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(200)),
                       ),
-                      child: Icon(
-                        FastIcons.awesome.heart,
-                        color: controller.gameState != null
-                            ? context.theme.primaryColor
-                            : null,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (controller.gameState != null)
+                            FastAnimate(
+                              duration: const Duration(milliseconds: 500),
+                              type: FastAnimateType.pulse,
+                              child: Icon(
+                                FastIcons.awesome.heart,
+                                color: context
+                                    .theme.buttonTheme.colorScheme?.primary,
+                              ),
+                            )
+                          else
+                            FastAnimate(
+                              type: FastAnimateType.swing,
+                              duration: const Duration(milliseconds: 500),
+                              child: Icon(FastIcons.awesome.heart),
+                            ),
+                        ],
                       ),
                     ),
                   ),

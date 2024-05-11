@@ -24,6 +24,7 @@ class AppPages {
       name: '/game-detail/:id',
       page: () => const GameDetailPage(),
       binding: GameDetailBindings(),
+      preventDuplicates: false,
     ),
     GetPage(
       name: signIn,

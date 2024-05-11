@@ -8,7 +8,7 @@ class AppLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: LoadingAnimationWidget.halfTriangleDot(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).buttonTheme.colorScheme!.primary,
         size: 100,
       ),
     );
