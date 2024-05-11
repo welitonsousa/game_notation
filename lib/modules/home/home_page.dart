@@ -1,4 +1,5 @@
 import 'package:fast_ui_kit/ui/widgets/search_app_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:game_notion/core/ui/app_state.dart';
 import 'package:game_notion/core/ui/widgets/app_empty.dart';
@@ -21,9 +22,26 @@ class _HomePageState extends AppState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        appBar: FastSearchAppBar(
-          title: controller.pageGameState.value.label,
-          onSearch: controller.localFilter,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(56),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                color: Colors.red,
+                tooltip: 'Sair',
+                icon: const Icon(Icons.exit_to_app),
+              ),
+              Expanded(
+                child: FastSearchAppBar(
+                  title: controller.pageGameState.value.label,
+                  onSearch: controller.localFilter,
+                ),
+              )
+            ],
+          ),
         ),
         body: Visibility(
           visible: controller.games.isNotEmpty,

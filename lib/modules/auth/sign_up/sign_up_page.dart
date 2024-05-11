@@ -1,5 +1,6 @@
 import 'package:fast_ui_kit/ui/widgets/button.dart';
 import 'package:fast_ui_kit/ui/widgets/form_field.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:game_notion/core/ui/app_state.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,15 @@ class _SignUpPageState extends AppState<SignUpPage, SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Cadastre sua conta')),
       body: ListView(
         children: [
+          const SizedBox(height: 20),
+          Hero(
+            tag: 'control',
+            child: SvgPicture.asset('assets/images/logo.svg', height: 100),
+          ),
+          const SizedBox(height: 20),
           Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 400),
