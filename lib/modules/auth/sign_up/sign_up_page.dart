@@ -60,6 +60,7 @@ class _SignUpPageState extends AppState<SignUpPage, SignUpController> {
                   children: [
                     FastFormField(
                       label: 'E-mail',
+                      textInputAction: TextInputAction.next,
                       validator: Zod().email().build,
                       controller: emailController,
                       textInputType: TextInputType.emailAddress,
@@ -67,6 +68,7 @@ class _SignUpPageState extends AppState<SignUpPage, SignUpController> {
                     const SizedBox(height: 10),
                     FastFormField(
                       label: 'Senha',
+                      textInputAction: TextInputAction.next,
                       validator: Zod().min(6).build,
                       controller: passwordController,
                       isPassword: true,
@@ -86,6 +88,15 @@ class _SignUpPageState extends AppState<SignUpPage, SignUpController> {
                       controller: password2Controller,
                       isPassword: true,
                       textInputType: TextInputType.emailAddress,
+                      onEditingComplete: () {
+                        if (form.currentState!.validate()) {
+                          Get.focusScope?.unfocus();
+                          controller.signUp(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(height: 10),
                     Obx(() {
@@ -94,6 +105,7 @@ class _SignUpPageState extends AppState<SignUpPage, SignUpController> {
                         loading: controller.loading.value,
                         onPressed: () {
                           if (form.currentState!.validate()) {
+                            Get.focusScope?.unfocus();
                             controller.signUp(
                               email: emailController.text,
                               password: passwordController.text,
