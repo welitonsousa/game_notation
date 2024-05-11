@@ -26,4 +26,9 @@ class GameServiceImpl implements GameService {
   Future<List<GameModel>> searchGames({required String q}) {
     return gameRepository.searchGames(q: q);
   }
+
+  @override
+  Future<void> removeGame({required int id}) {
+    return gameRepository.removeGame(id: id);
+  }
 }

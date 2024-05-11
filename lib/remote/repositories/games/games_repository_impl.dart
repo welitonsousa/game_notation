@@ -26,6 +26,14 @@ class GameRepositoryImpl implements GameRepository {
   }
 
   @override
+  Future<void> removeGame({required int id}) async {
+    final uid = auth.currentUser?.uid;
+    if (uid != null) {
+      return storage.collection(uid).doc(id.toString()).delete();
+    }
+  }
+
+  @override
   Stream<List<GameModel>>? gamesStream() {
     final uid = auth.currentUser?.uid;
     if (uid == null) return null;

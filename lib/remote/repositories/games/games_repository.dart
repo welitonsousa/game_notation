@@ -5,4 +5,5 @@ abstract class GameRepository {
   Future<GameModel> getGameById({required int id});
   Future<void> saveGame({required GameModel game});
   Stream<List<GameModel>>? gamesStream();
+  Future<void> removeGame({required int id});
 }

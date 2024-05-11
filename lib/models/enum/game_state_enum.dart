@@ -38,4 +38,9 @@ enum GameState {
       _ => null,
     };
   }
+
+  @override
+  String toString() {
+    return label;
+  }
 }
