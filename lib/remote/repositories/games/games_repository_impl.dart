@@ -37,7 +37,7 @@ class GameRepositoryImpl implements GameRepository {
   @override
   Future<List<GameModel>> searchGames({required String q}) async {
     final data =
-        """search "$q"; fields cover.image_id,name,summary,screenshots.image_id,external_games.game.cover.image_id,external_games.game.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;""";
+        """search "$q"; fields cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;""";
     await _twitchSignIn();
     final res = await restClient.post(
       '/games/',
@@ -50,7 +50,7 @@ class GameRepositoryImpl implements GameRepository {
   @override
   Future<GameModel> getGameById({required int id}) async {
     final data =
-        """where id=$id; fields cover.image_id,name,summary,screenshots.image_id,external_games.game.cover.image_id,external_games.game.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;""";
+        """where id=$id; fields cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;""";
     await _twitchSignIn();
     final res = await restClient.post(
       '/games/',

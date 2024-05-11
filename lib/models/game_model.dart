@@ -29,12 +29,12 @@ class GameModel {
       id: json['id'],
       state: GameState.fromId(json['state']),
       cover: json['cover'] != null ? CoverModel.fromJson(json['cover']) : null,
-      similarGames: (json['external_games'] ?? [])
-          .map<ExternalGameModel>((e) => ExternalGameModel.fromJson(e))
+      similarGames: (json['similar_games'] ?? [])
+          .map<ExternalGameModel>(ExternalGameModel.fromJson)
           .toList(),
       name: json['name'],
       platforms: (json['platforms'] ?? [])
-          .map<PlatformModel>((e) => PlatformModel.fromJson(e))
+          .map<PlatformModel>(PlatformModel.fromJson)
           .toList(),
       screenshots: (json['screenshots'] ?? [])
           .map<CoverModel>(CoverModel.fromJson)
@@ -49,7 +49,7 @@ class GameModel {
     return {
       'id': id,
       'cover': cover?.toJson(),
-      'external_games': similarGames.map((e) => e.toJson()).toList(),
+      'similar_games': similarGames.map((e) => e.toJson()).toList(),
       'name': name,
       'platforms': platforms.map((e) => e.toJson()).toList(),
       'screenshots': screenshots.map((e) => e.toJson()).toList(),

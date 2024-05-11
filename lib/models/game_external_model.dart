@@ -11,7 +11,7 @@ class ExternalGameModel {
   factory ExternalGameModel.fromJson(json) {
     return ExternalGameModel(
       id: json['id'],
-      cover: json['cover'] != null ? CoverModel.fromJson(json['cover']) : null,
+      cover: json?['cover'] != null ? CoverModel.fromJson(json['cover']) : null,
       name: json['name'] ?? '',
     );
   }

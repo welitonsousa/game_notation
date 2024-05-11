@@ -5,6 +5,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:game_notion/core/extensions/string_ext.dart';
 import 'package:game_notion/models/game_model.dart';
 import 'package:game_notion/modules/home/home_controller.dart';
+import 'package:game_notion/routers/pages.dart';
 import 'package:get/get.dart';
 
 class SearchGamesWidget extends StatefulWidget {
@@ -52,9 +53,13 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                 child: TypeAheadField<GameModel>(
                   focusNode: focus,
                   controller: searController,
-                  onSelected: (suggestion) {
+                  onSelected: (game) async {
                     focus.unfocus();
-                    controller.saveGame(suggestion);
+                    await Get.toNamed(
+                      "${AppPages.gameDetail}/${game.id}",
+                      arguments: game.id,
+                      preventDuplicates: false,
+                    );
                   },
                   autoFlipDirection: true,
                   hideOnEmpty: true,

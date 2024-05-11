@@ -12,9 +12,9 @@ class HomeController extends GetxController {
   final isSearch = false.obs;
   final localFilter = ''.obs;
 
-  final _games = <GameModel>[].obs;
+  final allGames = <GameModel>[].obs;
   List<GameModel> get games {
-    final list = _games.where((g) => g.state == pageGameState.value);
+    final list = allGames.where((g) => g.state == pageGameState.value);
     return list.where((g) {
       return g.name.toLowerCase().contains(localFilter.value.toLowerCase());
     }).toList();
@@ -33,12 +33,8 @@ class HomeController extends GetxController {
   void openSteamGamesList() {
     final s = gameService.gamesStream();
     s?.listen((g) {
-      _games.assignAll(g);
+      allGames.assignAll(g);
     });
-  }
-
-  Future<void> saveGame(GameModel game) {
-    return gameService.saveGame(game: game);
   }
 
   @override
