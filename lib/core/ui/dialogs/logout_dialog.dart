@@ -1,4 +1,5 @@
-import 'package:fast_ui_kit/fast_ui_kit.dart';
+import 'package:fast_ui_kit/extension/text.dart';
+import 'package:fast_ui_kit/ui/widgets/button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -32,7 +33,7 @@ class LogoutDialog extends StatelessWidget {
                   Expanded(
                     child: FastButton(
                       label: 'Cancelar',
-                      background: Colors.red,
+                      background: context.theme.colorScheme.error,
                       onPressed: Get.back,
                     ),
                   ),

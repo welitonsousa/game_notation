@@ -28,7 +28,10 @@ class _HomePageState extends AppState<HomePage, HomeController> {
           hint: 'Pesquisar jogos salvos',
           leading: IconButton(
             onPressed: () {
-              Get.dialog(const LogoutDialog());
+              showDialog(
+                context: context,
+                builder: (context) => const LogoutDialog(),
+              );
             },
             color: Colors.red,
             tooltip: 'Sair',
