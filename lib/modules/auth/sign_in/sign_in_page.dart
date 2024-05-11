@@ -2,6 +2,7 @@ import 'package:fast_ui_kit/ui/widgets/animate.dart';
 import 'package:fast_ui_kit/ui/widgets/button.dart';
 import 'package:fast_ui_kit/ui/widgets/form_field.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:game_notion/core/ui/dialogs/reset_password_dialog.dart';
 import 'package:game_notion/routers/pages.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -107,6 +108,15 @@ class _SignInPageState extends State<SignInPage> {
                     TextButton(
                       onPressed: () => Get.toNamed(AppPages.signUp),
                       child: const Text('Cadastrar'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => const ResetPasswordDialog(),
+                        );
+                      },
+                      child: const Text('Esqueci minha senha'),
                     ),
                   ],
                 ),
