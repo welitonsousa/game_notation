@@ -46,7 +46,7 @@ class GameDetailController extends GetxController {
 
   void toggleFavorite() {
     if (game.value == null) return;
-    if (game.value!.state != null) {
+    if (gameState != null) {
       game.value!.state = null;
       gameService.removeGame(id: game.value!.id);
     } else {

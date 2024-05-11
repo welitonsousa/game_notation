@@ -13,6 +13,7 @@ class HomeController extends GetxController {
   final pageGameState = GameState.finished.obs;
   final isSearch = false.obs;
   final localFilter = ''.obs;
+  final loading = true.obs;
 
   final allGames = <GameModel>[].obs;
   List<GameModel> get games {
@@ -39,6 +40,7 @@ class HomeController extends GetxController {
     final s = gameService.gamesStream();
     s?.listen((g) {
       allGames.assignAll(g);
+      loading.value = false;
     });
   }
 

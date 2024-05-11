@@ -3,6 +3,7 @@ import 'package:game_notion/core/ui/app_state.dart';
 import 'package:game_notion/core/ui/dialogs/logout_dialog.dart';
 import 'package:game_notion/core/ui/widgets/app_app_bar.dart';
 import 'package:game_notion/core/ui/widgets/app_empty.dart';
+import 'package:game_notion/core/ui/widgets/app_loading.dart';
 import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/modules/home/widgets/game_card_widget.dart';
 import 'package:game_notion/modules/home/widgets/search_games_widget.dart';
@@ -39,20 +40,24 @@ class _HomePageState extends AppState<HomePage, HomeController> {
           ),
         ),
         body: Visibility(
-          visible: controller.games.isNotEmpty,
-          replacement: const AppEmpty(),
-          child: GridView.builder(
-            padding: const EdgeInsets.all(10),
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 240,
-              mainAxisExtent: 240,
+          visible: controller.loading.value,
+          replacement: Visibility(
+            visible: controller.games.isNotEmpty,
+            replacement: const AppEmpty(),
+            child: GridView.builder(
+              padding: const EdgeInsets.all(10),
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 240,
+                mainAxisExtent: 240,
+              ),
+              itemCount: controller.games.length,
+              itemBuilder: (context, index) {
+                final game = controller.games[index];
+                return GameCardWidget(game: game);
+              },
             ),
-            itemCount: controller.games.length,
-            itemBuilder: (context, index) {
-              final game = controller.games[index];
-              return GameCardWidget(game: game);
-            },
           ),
+          child: const AppLoading(),
         ),
         floatingActionButton: const SearchGamesWidget(),
         bottomNavigationBar: SnakeNavigationBar.color(
