@@ -44,15 +44,18 @@ class GameRepositoryImpl implements GameRepository {
 
   @override
   Future<List<GameModel>> searchGames({required String q}) async {
-    final data =
-        """search "$q"; fields cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;""";
+    const fields =
+        "cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;";
     await _twitchSignIn();
     final res = await restClient.post(
       '/games/',
-      data: data,
+      queryParameters: {'search': q, 'fields': fields},
       options: restClient.auth(),
     );
-    return res.data.map<GameModel>(GameModel.fromJson).toList();
+
+    final list = res.data.map<GameModel>(GameModel.fromJson).toList();
+
+    return list;
   }
 
   @override

@@ -32,14 +32,14 @@ class GameModel {
       similarGames: (json['similar_games'] ?? [])
           .map<ExternalGameModel>(ExternalGameModel.fromJson)
           .toList(),
-      name: json['name'],
+      name: json['name'] ?? '',
       platforms: (json['platforms'] ?? [])
           .map<PlatformModel>(PlatformModel.fromJson)
           .toList(),
       screenshots: (json['screenshots'] ?? [])
           .map<CoverModel>(CoverModel.fromJson)
           .toList(),
-      summary: json['summary'],
+      summary: json['summary'] ?? '',
     );
 
     return res;

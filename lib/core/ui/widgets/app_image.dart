@@ -63,7 +63,7 @@ class _AppImageCachedState extends State<AppImageCached> {
       child: ClipRRect(
         borderRadius: widget.borderRadius ?? BorderRadius.circular(10),
         child: FastCachedImage(
-          // key: ValueKey(widget.path),
+          key: ValueKey(widget.path),
           url: widget.path,
           height: widget.height,
           width: widget.width,

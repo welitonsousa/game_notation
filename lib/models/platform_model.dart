@@ -12,10 +12,10 @@ class PlatformModel {
 
   factory PlatformModel.fromJson(json) {
     return PlatformModel(
-      id: json['id'],
-      name: json['name'],
-      slug: json['slug'],
-      abbreviation: json['abbreviation'],
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      slug: json['slug'] ?? '',
+      abbreviation: json['abbreviation'] ?? '',
     );
   }
 
