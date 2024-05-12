@@ -43,78 +43,72 @@ class _SignUpPageState extends AppState<SignUpPage, SignUpController> {
             child: Container(
               constraints: const BoxConstraints(maxWidth: 400),
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: context.theme.cardColor,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Form(
-                key: form,
-                child: Column(
-                  children: [
-                    FastFormField(
-                      label: 'E-mail',
-                      textInputAction: TextInputAction.next,
-                      validator: Zod().email().build,
-                      controller: emailController,
-                      textInputType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: 10),
-                    FastFormField(
-                      label: 'Senha',
-                      textInputAction: TextInputAction.next,
-                      validator: Zod().min(6).build,
-                      controller: passwordController,
-                      isPassword: true,
-                      textInputType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: 10),
-                    FastFormField(
-                      label: 'Confirme a senha',
-                      validator: Zod()
-                          .min(6)
-                          .custom(
-                              (p) =>
-                                  passwordController.text ==
-                                  password2Controller.text,
-                              errorMessage: 'As senhas não conferem')
-                          .build,
-                      controller: password2Controller,
-                      isPassword: true,
-                      textInputType: TextInputType.emailAddress,
-                      onEditingComplete: () {
-                        if (form.currentState!.validate()) {
-                          Get.focusScope?.unfocus();
-                          controller.signUp(
-                            email: emailController.text,
-                            password: passwordController.text,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Form(
+                    key: form,
+                    child: Column(
+                      children: [
+                        FastFormField(
+                          label: 'E-mail',
+                          textInputAction: TextInputAction.next,
+                          validator: Zod().email().build,
+                          controller: emailController,
+                          textInputType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 10),
+                        FastFormField(
+                          label: 'Senha',
+                          textInputAction: TextInputAction.next,
+                          validator: Zod().min(6).build,
+                          controller: passwordController,
+                          isPassword: true,
+                          textInputType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 10),
+                        FastFormField(
+                          label: 'Confirme a senha',
+                          validator: Zod()
+                              .min(6)
+                              .custom(
+                                  (p) =>
+                                      passwordController.text ==
+                                      password2Controller.text,
+                                  errorMessage: 'As senhas não conferem')
+                              .build,
+                          controller: password2Controller,
+                          isPassword: true,
+                          textInputType: TextInputType.emailAddress,
+                          onEditingComplete: () {
+                            if (form.currentState!.validate()) {
+                              Get.focusScope?.unfocus();
+                              controller.signUp(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        Obx(() {
+                          return FastButton(
+                            label: 'Cadastrar',
+                            loading: controller.loading.value,
+                            onPressed: () {
+                              if (form.currentState!.validate()) {
+                                Get.focusScope?.unfocus();
+                                controller.signUp(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                              }
+                            },
                           );
-                        }
-                      },
+                        }),
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                    Obx(() {
-                      return FastButton(
-                        label: 'Cadastrar',
-                        loading: controller.loading.value,
-                        onPressed: () {
-                          if (form.currentState!.validate()) {
-                            Get.focusScope?.unfocus();
-                            controller.signUp(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
-                          }
-                        },
-                      );
-                    }),
-                  ],
+                  ),
                 ),
               ),
             ),

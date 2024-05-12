@@ -50,75 +50,70 @@ class _SignInPageState extends State<SignInPage> {
             child: Container(
               constraints: const BoxConstraints(maxWidth: 400),
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: context.theme.cardColor,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Form(
-                key: form,
-                child: Column(
-                  children: [
-                    FastFormField(
-                      label: 'E-mail',
-                      validator: Zod().email().build,
-                      textInputAction: TextInputAction.next,
-                      controller: emailController,
-                      textInputType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: 10),
-                    FastFormField(
-                      label: 'Senha',
-                      validator: Zod().min(6).build,
-                      controller: passwordController,
-                      isPassword: true,
-                      onEditingComplete: () {
-                        if (form.currentState!.validate()) {
-                          Get.focusScope?.unfocus();
-                          controller.signIn(
-                            email: emailController.text,
-                            password: passwordController.text,
+              child: Card(
+
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Form(
+                    key: form,
+                    child: Column(
+                      children: [
+                        FastFormField(
+                          label: 'E-mail',
+                          validator: Zod().email().build,
+                          textInputAction: TextInputAction.next,
+                          controller: emailController,
+                          textInputType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 10),
+                        FastFormField(
+                          label: 'Senha',
+                          validator: Zod().min(6).build,
+                          controller: passwordController,
+                          isPassword: true,
+                          onEditingComplete: () {
+                            if (form.currentState!.validate()) {
+                              Get.focusScope?.unfocus();
+                              controller.signIn(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          textInputType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 10),
+                        Obx(() {
+                          return FastButton(
+                            label: 'Entrar',
+                            loading: controller.loading.value,
+                            onPressed: () {
+                              if (form.currentState!.validate()) {
+                                Get.focusScope?.unfocus();
+                                controller.signIn(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                              }
+                            },
                           );
-                        }
-                      },
-                      textInputType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: 10),
-                    Obx(() {
-                      return FastButton(
-                        label: 'Entrar',
-                        loading: controller.loading.value,
-                        onPressed: () {
-                          if (form.currentState!.validate()) {
-                            Get.focusScope?.unfocus();
-                            controller.signIn(
-                              email: emailController.text,
-                              password: passwordController.text,
+                        }),
+                        TextButton(
+                          onPressed: () => Get.toNamed(AppPages.signUp),
+                          child: const Text('Cadastrar'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => const ResetPasswordDialog(),
                             );
-                          }
-                        },
-                      );
-                    }),
-                    TextButton(
-                      onPressed: () => Get.toNamed(AppPages.signUp),
-                      child: const Text('Cadastrar'),
+                          },
+                          child: const Text('Esqueci minha senha'),
+                        ),
+                      ],
                     ),
-                    TextButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => const ResetPasswordDialog(),
-                        );
-                      },
-                      child: const Text('Esqueci minha senha'),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
