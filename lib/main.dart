@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Game Notation',
+      title: 'Game Notion',
       darkTheme: theme.dark,
       theme: theme.light,
       debugShowCheckedModeBanner: false,

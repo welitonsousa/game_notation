@@ -17,7 +17,13 @@ class HomeController extends GetxController {
 
   final allGames = <GameModel>[].obs;
   List<GameModel> get games {
-    var list = allGames.where((g) => g.state == pageGameState.value);
+    var list = allGames.where((g) {
+      if (pageGameState.value == GameState.finished &&
+          g.state == GameState.platinum) {
+        return true;
+      }
+      return g.state == pageGameState.value;
+    });
     list = list.where((g) {
       return g.name.toLowerCase().contains(localFilter.value.toLowerCase());
     });

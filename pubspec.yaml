@@ -47,8 +47,8 @@ flutter:
   #         weight: 700
   #
 msix_config:
-  display_name: Game Notation
-  publisher_display_name: Game Notation
-  identity_name: GameNotation
+  display_name: Game Notion
+  publisher_display_name: Game Notion
+  identity_name: GameNotion
   msix_version: 1.0.0.0
   logo_path: assets\images\logo.png
