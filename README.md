@@ -9,7 +9,7 @@ Além disso, este aplicativo permite que os dados do usuário sejam salvos no Fi
 
 <br>
 
-<a href="./assets/files/android.apk">Baixe o app para Android 🤖</a>
+<a href="https://github.com/welitonsousa/game_notation/raw/main/assets/files/android.apk">Baixe o app para Android 🤖</a>
 
 <br>
 
