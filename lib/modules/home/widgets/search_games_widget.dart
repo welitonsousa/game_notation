@@ -99,7 +99,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: Image.network(
-                                      suggestion.cover!.imageId.imageURL,
+                                      suggestion.cover!.imageId.imageThumbURL,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
