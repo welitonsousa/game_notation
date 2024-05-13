@@ -9,6 +9,10 @@ Além disso, este aplicativo permite que os dados do usuário sejam salvos no Fi
 
 <br>
 
+<a href="./assets/files/android.apk">Baixe o app para Android 🤖</a>
+
+<br>
+
 <h2 align="center">Android - Light/Dark mode</h2>
 <p align="center">
     <img src="./assets/screenshots/android-light.png" width="250" height="500"/>
