@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:game_notion/core/extensions/string_ext.dart';
 import 'package:game_notion/core/ui/widgets/app_image.dart';
-import 'package:game_notion/models/game_model.dart';
+import 'package:game_notion/models/game_small_model.dart';
 import 'package:game_notion/routers/pages.dart';
 import 'package:get/get.dart';
 
 class GameCardWidget extends StatelessWidget {
-  final GameModel game;
+  final GameSmallModel game;
   const GameCardWidget({super.key, required this.game});
 
   @override
@@ -31,7 +31,7 @@ class GameCardWidget extends StatelessWidget {
                       topRight: Radius.circular(10),
                     ),
                     child: AppImageCached(
-                      path: game.cover!.imageId.imageURL,
+                      path: game.cover!.imageId.imageCoverURL,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: 160,

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:game_notion/core/rest_client/rest_client.dart';
 import 'package:game_notion/core/settings/env.dart';
 import 'package:game_notion/models/game_model.dart';
+import 'package:game_notion/models/game_small_model.dart';
 
 import 'games_repository.dart';
 
@@ -19,7 +20,7 @@ class GameRepositoryImpl implements GameRepository {
   });
 
   @override
-  Future<void> saveGame({required GameModel game}) async {
+  Future<void> saveGame({required GameSmallModel game}) async {
     final uid = auth.currentUser?.uid;
     if (uid == null) return;
     await storage.collection(uid).doc(game.id.toString()).set(game.toJson());
@@ -34,26 +35,29 @@ class GameRepositoryImpl implements GameRepository {
   }
 
   @override
-  Stream<List<GameModel>>? gamesStream() {
+  Stream<List<GameSmallModel>>? gamesStream() {
     final uid = auth.currentUser?.uid;
     if (uid == null) return null;
     final res = storage.collection(uid).snapshots().map((query) =>
-        query.docs.map((doc) => GameModel.fromJson(doc.data())).toList());
+        query.docs.map((doc) => GameSmallModel.fromJson(doc.data())).toList());
     return res;
   }
 
   @override
-  Future<List<GameModel>> searchGames({required String q}) async {
-    const fields =
-        "cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;";
+  Future<List<GameSmallModel>> searchGames({required String q}) async {
+    const fields = "cover.image_id,name;";
     await _twitchSignIn();
     final res = await restClient.post(
       '/games/',
-      queryParameters: {'search': q, 'fields': fields},
+      queryParameters: {
+        'search': q,
+        'fields': fields,
+        'limit': 20,
+      },
       options: restClient.auth(),
     );
 
-    final list = res.data.map<GameModel>(GameModel.fromJson).toList();
+    final list = res.data.map<GameSmallModel>(GameSmallModel.fromJson).toList();
 
     return list;
   }
@@ -61,7 +65,7 @@ class GameRepositoryImpl implements GameRepository {
   @override
   Future<GameModel> getGameById({required int id}) async {
     final data =
-        """where id=$id; fields cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug;""";
+        """where id=$id; fields cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug,videos.name,videos.video_id;""";
     await _twitchSignIn();
     final res = await restClient.post(
       '/games/',

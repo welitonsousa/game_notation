@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import './game_detail_controller.dart';
 import 'widgets/favorite_button_widget.dart';
+import 'widgets/game_item_detail.dart';
+import 'widgets/list_videos_widget.dart';
 import 'widgets/platforms_widget.dart';
 
 class GameDetailPage extends StatefulWidget {
@@ -66,7 +68,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
             children: [
               if (controller.game.value!.cover != null)
                 Container(
-                  height: 300,
+                  height: context.isPhone ? null : 300,
                   decoration: const BoxDecoration(
                     color: Colors.black,
                   ),
@@ -83,8 +85,9 @@ class _GameDetailPageState extends State<GameDetailPage> {
                     },
                     child: AppImageCached(
                       path: controller.game.value!.cover!.imageId.imageURL,
-                      fit: BoxFit.fitHeight,
+                      fit: context.isPhone ? BoxFit.cover : BoxFit.fitHeight,
                       width: double.infinity,
+                      borderRadius: const BorderRadius.only(),
                     ),
                   ),
                 ),
@@ -118,17 +121,21 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       similarGames: controller.game.value!.similarGames,
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'Capturas de tela',
-                      style: TextStyle(fontSize: 22),
+                    GameItemDetail(
+                      title: 'Capturas de tela',
+                      child: ScreenshotsGridView(
+                        screenshots: controller.game.value!.screenshots
+                            .map((e) => e.imageId.imageURL)
+                            .toList(),
+                      ),
                     ),
-                    const SizedBox(height: 20),
-                    ScreenshotsGridView(
-                      screenshots: controller.game.value!.screenshots
-                          .map((e) => e.imageId.imageURL)
-                          .toList(),
+                    GameItemDetail(
+                      title: 'Vídeos',
+                      child: ListVideosWidget(
+                        videos: controller.game.value!.videos,
+                      ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 60)
                   ],
                 ),
               ),

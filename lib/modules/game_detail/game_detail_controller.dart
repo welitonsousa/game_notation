@@ -51,7 +51,7 @@ class GameDetailController extends GetxController {
       gameService.removeGame(id: game.value!.id);
     } else {
       game.value!.state = GameState.wishlist;
-      gameService.saveGame(game: game.value!);
+      gameService.saveGame(game: game.value!.toSmallModel());
     }
     game.refresh();
   }
@@ -60,6 +60,6 @@ class GameDetailController extends GetxController {
     if (game.value == null) return;
 
     game.value!.state = state;
-    gameService.saveGame(game: game.value!);
+    gameService.saveGame(game: game.value!.toSmallModel());
   }
 }
