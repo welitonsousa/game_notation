@@ -3,7 +3,7 @@ import 'package:fast_ui_kit/ui/widgets/animate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:game_notion/core/extensions/string_ext.dart';
-import 'package:game_notion/models/game_model.dart';
+import 'package:game_notion/models/game_small_model.dart';
 import 'package:game_notion/modules/home/home_controller.dart';
 import 'package:game_notion/routers/pages.dart';
 import 'package:get/get.dart';
@@ -50,7 +50,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
               duration: const Duration(milliseconds: 1000),
               child: Padding(
                 padding: const EdgeInsets.only(left: 30),
-                child: TypeAheadField<GameModel>(
+                child: TypeAheadField<GameSmallModel>(
                   focusNode: focus,
                   controller: searController,
                   onSelected: (game) async {
@@ -99,7 +99,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: Image.network(
-                                      suggestion.cover!.imageId.imageURL,
+                                      suggestion.cover!.imageId.imageThumbURL,
                                       fit: BoxFit.cover,
                                     ),
                                   ),

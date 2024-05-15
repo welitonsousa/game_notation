@@ -17,7 +17,7 @@ class GameStateWidget extends StatelessWidget {
       type: FastAnimateType.elasticInDown,
       duration: const Duration(seconds: 1),
       child: Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: FastButtonGroup<GameState>(
           callback: (v) {
             if (v.isNotEmpty) onChange(v.first);

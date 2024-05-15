@@ -5,22 +5,24 @@ import 'package:game_notion/core/settings/app_initialize.dart';
 import 'package:game_notion/routers/pages.dart';
 import 'package:get/get.dart';
 
-Future<void> main() async {
-  await AppInitialize.initialize();
+import 'splash_main.dart';
 
-  runApp(const MyApp());
+Future<void> main() async {
+  final theme = FastTheme(seed: Colors.deepPurpleAccent);
+  runApp(SplashMain(theme: theme));
+  await AppInitialize.initialize();
+  runApp(MyApp(theme: theme));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  final FastTheme theme;
+  const MyApp({super.key, required this.theme});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  final theme = FastTheme(seed: Colors.deepPurpleAccent);
-
   @override
   void initState() {
     FirebaseAuth.instance.userChanges().listen((user) {
@@ -38,8 +40,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Game Notion',
-      darkTheme: theme.dark,
-      theme: theme.light,
+      darkTheme: widget.theme.dark,
+      theme: widget.theme.light,
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.signIn,
       getPages: AppPages.pages,

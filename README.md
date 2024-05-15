@@ -9,19 +9,23 @@ Além disso, este aplicativo permite que os dados do usuário sejam salvos no Fi
 
 <br>
 
-<h2 align="center">Android - Light/Dark mode</h2>
+<a href="https://github.com/welitonsousa/game_notation/raw/main/assets/files/android.apk">Baixe o app para Android 🤖</a>
+
+<br>
+
+<h2 align="center">Dark mode</h2>
 <p align="center">
-    <img src="./assets/screenshots/android-light.png" width="250" height="500"/>
-    <img src="./assets/screenshots/android-dark.png" width="250" height="500"/>
+    <img src="./assets/screenshots/ios-dark.png" width="270" height="520"/>
+    <img src="./assets/screenshots/android-dark.png" width="220" height="500"/>
 </p>
 
-<h2 align="center">IOS - Light/Dark mode</h2>
+<h2 align="center">Light mode</h2>
 <p align="center">
     <img src="./assets/screenshots/ios-light.png" width="250" height="500"/>
-    <img src="./assets/screenshots/ios-dark.png" width="270" height="520"/>
+    <img src="./assets/screenshots/android-light.png" width="220" height="500"/>
 </p>
 
-<h2 align="center">Windows - App rodando</h2>
+<h2 align="center">Windows</h2>
 
 <p align="center">
     <img src="./assets/screenshots/game-notion.gif" />

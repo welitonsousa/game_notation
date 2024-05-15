@@ -1,7 +1,9 @@
 import 'package:game_notion/models/cover_model.dart';
 import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/models/game_external_model.dart';
+import 'package:game_notion/models/game_small_model.dart';
 import 'package:game_notion/models/platform_model.dart';
+import 'package:game_notion/models/video_model.dart';
 
 class GameModel {
   final int id;
@@ -11,6 +13,7 @@ class GameModel {
   final List<PlatformModel> platforms;
   final List<CoverModel> screenshots;
   final String summary;
+  final List<VideoModel> videos;
   GameState? state;
 
   GameModel({
@@ -20,6 +23,7 @@ class GameModel {
     required this.platforms,
     required this.screenshots,
     required this.summary,
+    required this.videos,
     this.cover,
     this.state,
   });
@@ -40,21 +44,19 @@ class GameModel {
           .map<CoverModel>(CoverModel.fromJson)
           .toList(),
       summary: json['summary'] ?? '',
+      videos:
+          (json['videos'] ?? []).map<VideoModel>(VideoModel.fromJson).toList(),
     );
 
     return res;
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'cover': cover?.toJson(),
-      'similar_games': similarGames.map((e) => e.toJson()).toList(),
-      'name': name,
-      'platforms': platforms.map((e) => e.toJson()).toList(),
-      'screenshots': screenshots.map((e) => e.toJson()).toList(),
-      'summary': summary,
-      'state': state?.index,
-    };
+  GameSmallModel toSmallModel() {
+    return GameSmallModel(
+      id: id,
+      cover: cover,
+      name: name,
+      state: state,
+    );
   }
 }

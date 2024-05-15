@@ -2,7 +2,6 @@ import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class AppImageCached extends StatefulWidget {
-  static bool useCache = true;
   final String path;
   final double? width;
   final double? height;
@@ -37,26 +36,6 @@ class _AppImageCachedState extends State<AppImageCached> {
       );
     }
 
-    if (!AppImageCached.useCache) {
-      return SizedBox(
-        width: widget.width,
-        height: widget.height,
-        child: ClipRRect(
-          borderRadius: widget.borderRadius ?? BorderRadius.circular(10),
-          child: Image.network(
-            widget.path,
-            height: widget.height,
-            width: widget.width,
-            fit: widget.fit,
-            isAntiAlias: true,
-            errorBuilder: (_, __, ___) {
-              return widget.error ?? const SizedBox();
-            },
-          ),
-        ),
-      );
-    }
-
     return SizedBox(
       width: widget.width,
       height: widget.height,
@@ -69,6 +48,7 @@ class _AppImageCachedState extends State<AppImageCached> {
           width: widget.width,
           fit: widget.fit,
           isAntiAlias: true,
+          filterQuality: FilterQuality.low,
           showErrorLog: false,
           errorBuilder: (_, __, ___) {
             return widget.error ?? const SizedBox();
