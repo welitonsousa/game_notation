@@ -27,7 +27,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
-        Get.offAllNamed(AppPages.home);
+        if (Get.currentRoute == AppPages.signIn) {
+          Get.offAllNamed(AppPages.home); 
+        }
       } else {
         Get.offAllNamed(AppPages.signIn);
       }
