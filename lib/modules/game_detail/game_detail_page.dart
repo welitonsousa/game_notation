@@ -41,108 +41,105 @@ class _GameDetailPageState extends State<GameDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        floatingActionButton: const SearchGamesWidget(),
-        appBar: AppBar(
-          title: const Text("Detalhes do jogo"),
-          actions: [
-            Obx(() {
-              if (controller.game.value != null) {
-                return FavoriteButtonWidget(
-                  state: controller.gameState,
-                  toggleFavorite: controller.toggleFavorite,
-                );
-              }
-              return const SizedBox.shrink();
-            })
-          ],
-        ),
-        body: Obx(() {
-          if (controller.loading.value) {
-            return const AppLoading();
-          } else if (controller.error.value) {
-            return AppError(onRetry: controller.findGame);
-          }
-          return ListView(
-            children: [
-              if (controller.game.value!.cover != null)
-                Container(
-                  height: context.isPhone ? null : 300,
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      showImageViewer(
-                        context,
-                        AppImageCached.provider(
-                            controller.game.value!.cover!.imageId.imageURL),
-                        useSafeArea: true,
-                        swipeDismissible: true,
-                        immersive: true,
-                      );
-                    },
-                    child: AppImageCached(
-                      path: controller.game.value!.cover!.imageId.imageURL,
-                      fit: context.isPhone ? BoxFit.cover : BoxFit.fitHeight,
-                      width: double.infinity,
-                      borderRadius: const BorderRadius.only(),
-                    ),
-                  ),
+    return Scaffold(
+      floatingActionButton: const SearchGamesWidget(),
+      appBar: AppBar(
+        title: const Text("Detalhes do jogo"),
+        actions: [
+          Obx(() {
+            if (controller.game.value != null) {
+              return FavoriteButtonWidget(
+                state: controller.gameState,
+                toggleFavorite: controller.toggleFavorite,
+              );
+            }
+            return const SizedBox.shrink();
+          })
+        ],
+      ),
+      body: Obx(() {
+        if (controller.loading.value) {
+          return const AppLoading();
+        } else if (controller.error.value) {
+          return AppError(onRetry: controller.findGame);
+        }
+        return ListView(
+          children: [
+            if (controller.game.value!.cover != null)
+              Container(
+                height: context.isPhone ? null : 300,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
                 ),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(controller.game.value!.name,
-                        style: const TextStyle(fontSize: 24)),
-                    if (controller.gameState != null)
-                      GameStateWidget(
-                        onChange: controller.changeGameState,
-                        state: controller.gameState!,
-                      ),
-                    Text(
-                      controller.game.value!.summary,
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 20),
-                    PlatformsWidget(
-                        platforms: controller.game.value!.platforms),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Jogos similares',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                    const SizedBox(height: 20),
-                    ListSimilarGames(
-                      similarGames: controller.game.value!.similarGames,
-                    ),
-                    const SizedBox(height: 20),
-                    GameItemDetail(
-                      title: 'Capturas de tela',
-                      child: ScreenshotsGridView(
-                        screenshots: controller.game.value!.screenshots
-                            .map((e) => e.imageId.imageURL)
-                            .toList(),
-                      ),
-                    ),
-                    GameItemDetail(
-                      title: 'Vídeos',
-                      child: ListVideosWidget(
-                        videos: controller.game.value!.videos,
-                      ),
-                    ),
-                    const SizedBox(height: 60)
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    showImageViewer(
+                      context,
+                      AppImageCached.provider(
+                          controller.game.value!.cover!.imageId.imageURL),
+                      useSafeArea: true,
+                      swipeDismissible: true,
+                      immersive: true,
+                    );
+                  },
+                  child: AppImageCached(
+                    path: controller.game.value!.cover!.imageId.imageURL,
+                    fit: context.isPhone ? BoxFit.cover : BoxFit.fitHeight,
+                    width: double.infinity,
+                    borderRadius: const BorderRadius.only(),
+                  ),
                 ),
               ),
-            ],
-          );
-        }),
-      ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(controller.game.value!.name,
+                      style: const TextStyle(fontSize: 24)),
+                  if (controller.gameState != null)
+                    GameStateWidget(
+                      onChange: controller.changeGameState,
+                      state: controller.gameState!,
+                    ),
+                  Text(
+                    controller.game.value!.summary,
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 20),
+                  PlatformsWidget(platforms: controller.game.value!.platforms),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Jogos similares',
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  const SizedBox(height: 20),
+                  ListSimilarGames(
+                    similarGames: controller.game.value!.similarGames,
+                  ),
+                  const SizedBox(height: 20),
+                  GameItemDetail(
+                    title: 'Capturas de tela',
+                    child: ScreenshotsGridView(
+                      screenshots: controller.game.value!.screenshots
+                          .map((e) => e.imageId.imageURL)
+                          .toList(),
+                    ),
+                  ),
+                  GameItemDetail(
+                    title: 'Vídeos',
+                    child: ListVideosWidget(
+                      videos: controller.game.value!.videos,
+                    ),
+                  ),
+                  const SizedBox(height: 60)
+                ],
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }
