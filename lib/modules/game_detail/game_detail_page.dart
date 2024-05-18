@@ -82,11 +82,10 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       immersive: true,
                     );
                   },
-                  child: AppImageCached(
-                    path: controller.game.value!.cover!.imageId.imageURL,
+                  child: Image.network(
+                    controller.game.value!.cover!.imageId.imageURL,
                     fit: context.isPhone ? BoxFit.cover : BoxFit.fitHeight,
                     width: double.infinity,
-                    borderRadius: const BorderRadius.only(),
                   ),
                 ),
               ),
