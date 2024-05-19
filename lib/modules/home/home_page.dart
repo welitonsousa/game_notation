@@ -64,8 +64,8 @@ class _HomePageState extends AppState<HomePage, HomeController> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.8),
-                blurRadius: 10,
+                color: Colors.black.withOpacity(0.5),
+                blurRadius: 2,
                 spreadRadius: 1,
               ),
             ],
