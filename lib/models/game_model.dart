@@ -14,6 +14,7 @@ class GameModel {
   final List<CoverModel> screenshots;
   final String summary;
   final List<VideoModel> videos;
+  final List<CoverModel> artworks;
   GameState? state;
 
   GameModel({
@@ -24,6 +25,7 @@ class GameModel {
     required this.screenshots,
     required this.summary,
     required this.videos,
+    required this.artworks,
     this.cover,
     this.state,
   });
@@ -46,6 +48,9 @@ class GameModel {
       summary: json['summary'] ?? '',
       videos:
           (json['videos'] ?? []).map<VideoModel>(VideoModel.fromJson).toList(),
+      artworks: (json['artworks'] ?? [])
+          .map<CoverModel>(CoverModel.fromJson)
+          .toList(),
     );
 
     return res;

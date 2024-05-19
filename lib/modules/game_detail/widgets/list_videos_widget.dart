@@ -22,50 +22,49 @@ class ListVideosWidget extends StatelessWidget {
       itemCount: videos.length,
       itemBuilder: (context, index) {
         final v = videos[index];
-        return GestureDetector(
-          onTap: () {
-            final url = v.videoID.ytURL;
-            launchUrlString(url, mode: LaunchMode.externalApplication);
-          },
-          child: Stack(
-            children: [
-              AppImageCached(
-                path: v.videoID.ytThumbURL,
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: GestureDetector(
+            onTap: () {
+              final url = v.videoID.ytURL;
+              launchUrlString(url, mode: LaunchMode.externalApplication);
+            },
+            child: Stack(
+              children: [
+                AppImageCached(
+                  path: v.videoID.ytThumbURL,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      v.name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                  child: Text(
-                    v.name,
-                    style: const TextStyle(
+                ),
+                const Positioned.fill(
+                  child: Center(
+                    child: Icon(
+                      Icons.play_circle_fill,
+                      size: 48,
                       color: Colors.white,
-                      fontSize: 16,
                     ),
                   ),
                 ),
-              ),
-              const Positioned.fill(
-                child: Center(
-                  child: Icon(
-                    Icons.play_circle_fill,
-                    size: 48,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

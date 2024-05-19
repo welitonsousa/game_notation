@@ -60,23 +60,34 @@ class _HomePageState extends AppState<HomePage, HomeController> {
           child: const AppLoading(),
         ),
         floatingActionButton: const SearchGamesWidget(),
-        bottomNavigationBar: SnakeNavigationBar.color(
-          currentIndex: controller.pageGameState.value.index,
-          showUnselectedLabels: context.isTablet,
-          showSelectedLabels: context.isTablet,
-          snakeViewColor: context.theme.buttonTheme.colorScheme?.primary,
-          unselectedItemColor: context.theme.buttonTheme.colorScheme?.primary,
-          snakeShape: SnakeShape.rectangle,
-          onTap: (index) {
-            controller.pageGameState.value = GameState.values[index];
-          },
-          items: GameState.values.map((e) {
-            return BottomNavigationBarItem(
-              icon: Icon(e.icon),
-              label: e.label,
-              tooltip: e.label,
-            );
-          }).toList(),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.8),
+                blurRadius: 10,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: SnakeNavigationBar.color(
+            currentIndex: controller.pageGameState.value.index,
+            showUnselectedLabels: context.isTablet,
+            showSelectedLabels: context.isTablet,
+            snakeViewColor: context.theme.buttonTheme.colorScheme?.primary,
+            unselectedItemColor: context.theme.buttonTheme.colorScheme?.primary,
+            snakeShape: SnakeShape.rectangle,
+            onTap: (index) {
+              controller.pageGameState.value = GameState.values[index];
+            },
+            items: GameState.values.map((e) {
+              return BottomNavigationBarItem(
+                icon: Icon(e.icon),
+                label: e.label,
+                tooltip: e.label,
+              );
+            }).toList(),
+          ),
         ),
       );
     });

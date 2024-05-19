@@ -65,7 +65,7 @@ class GameRepositoryImpl implements GameRepository {
   @override
   Future<GameModel> getGameById({required int id}) async {
     final data =
-        """where id=$id; fields cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug,videos.name,videos.video_id;""";
+        """where id=$id; fields artworks.image_id,cover.image_id,name,summary,screenshots.image_id,similar_games.cover.image_id,similar_games.name,first_release_date,platforms.abbreviation,platforms.name,platforms.slug,videos.name,videos.video_id;""";
     await _twitchSignIn();
     final res = await restClient.post(
       '/games/',

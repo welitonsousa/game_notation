@@ -65,12 +65,10 @@ class _GameDetailPageState extends State<GameDetailPage> {
         }
         return ListView(
           children: [
-            if (controller.game.value!.cover != null)
-              Container(
-                height: context.isPhone ? null : 300,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                ),
+            if (controller.game.value!.cover != null &&
+                controller.game.value!.artworks.isEmpty)
+              SizedBox(
+                height: context.isPhone ? 500 : 300,
                 child: GestureDetector(
                   onTap: () {
                     showImageViewer(
@@ -82,12 +80,78 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       immersive: true,
                     );
                   },
-                  child: Image.network(
-                    controller.game.value!.cover!.imageId.imageURL,
+                  child: AppImageCached(
+                    path: controller.game.value!.cover!.imageId.imageURL,
                     fit: context.isPhone ? BoxFit.cover : BoxFit.fitHeight,
                     width: double.infinity,
                   ),
                 ),
+              )
+            else if (controller.game.value!.artworks.isNotEmpty)
+              Stack(
+                children: [
+                  SizedBox(
+                    child: GestureDetector(
+                      onTap: () {
+                        showImageViewer(
+                          context,
+                          AppImageCached.provider(controller
+                              .game.value!.artworks.first.imageId.imageURL),
+                          useSafeArea: true,
+                          swipeDismissible: true,
+                          immersive: true,
+                        );
+                      },
+                      child: SizedBox(
+                        height: 350,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 300,
+                              child: AppImageCached(
+                                path: controller.game.value!.artworks.first
+                                    .imageId.imageURL,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 5,
+                    left: 5,
+                    child: GestureDetector(
+                      onTap: () {
+                        showImageViewer(
+                          context,
+                          AppImageCached.provider(
+                              controller.game.value!.cover!.imageId.imageURL),
+                          useSafeArea: true,
+                          swipeDismissible: true,
+                          immersive: true,
+                        );
+                      },
+                      child: SizedBox(
+                        height: 200,
+                        width: 150,
+                        child: Card(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: AppImageCached(
+                              path: controller
+                                  .game.value!.cover!.imageId.imageURL,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             Padding(
               padding: const EdgeInsets.all(12),

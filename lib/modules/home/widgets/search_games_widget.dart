@@ -40,8 +40,8 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Column(
+    return Obx(() {
+      return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (controller.isSearch.value)
@@ -124,6 +124,9 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
             )
           else
             ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                elevation: 2,
+              ),
               onPressed: () {
                 controller.isSearch.value = !controller.isSearch.value;
               },
@@ -134,7 +137,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
               icon: Icon(FastIcons.awesome.gamepad),
             )
         ],
-      ),
-    );
+      );
+    });
   }
 }
