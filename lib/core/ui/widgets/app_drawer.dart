@@ -124,7 +124,10 @@ class _AppDrawerState extends State<AppDrawer> {
                 final name = SettingsModel.fonts[index];
                 return ListTile(
                   selected: name == userSettings.settings.fontName,
-                  title: Text(name),
+                  title: Text(
+                    name,
+                    style: TextStyle(fontFamily: name),
+                  ),
                   onTap: () {
                     userSettings.changeFont(name);
                   },
