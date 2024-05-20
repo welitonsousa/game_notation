@@ -158,14 +158,14 @@ class _GameDetailPageState extends State<GameDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(controller.game.value!.name,
+                  SelectableText(controller.game.value!.name,
                       style: const TextStyle(fontSize: 24)),
                   if (controller.gameState != null)
                     GameStateWidget(
                       onChange: controller.changeGameState,
                       state: controller.gameState!,
                     ),
-                  Text(
+                  SelectableText(
                     controller.game.value!.summary,
                     textAlign: TextAlign.justify,
                     style: const TextStyle(fontSize: 16),

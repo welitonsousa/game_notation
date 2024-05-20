@@ -41,7 +41,7 @@ class GameSmallModel {
       'id': id,
       'name': name,
       'cover': cover?.toJson(),
-      'state': state?.index,
+      'state': state?.id,
     };
   }
 }

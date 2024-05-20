@@ -22,20 +22,9 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
 
   @override
   void dispose() {
-    focus.dispose();
     searController.dispose();
+    focus.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    focus.addListener(() {
-      if (!focus.hasFocus) {
-        controller.isSearch.value = false;
-        searController.clear();
-      }
-    });
-    super.initState();
   }
 
   @override
@@ -55,6 +44,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                   controller: searController,
                   onSelected: (game) async {
                     focus.unfocus();
+                    controller.isSearch.value = false;
                     await Get.toNamed(
                       "${AppPages.gameDetail}/${game.id}",
                       arguments: game.id,
@@ -65,12 +55,16 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                   hideOnEmpty: true,
                   builder: (context, controller, child) {
                     return TextFormField(
-                      controller: searController,
+                      controller: controller,
                       focusNode: focus,
                       autofocus: true,
                       decoration: InputDecoration(
                         suffixIcon: GestureDetector(
-                            onTap: focus.unfocus,
+                            onTap: () {
+                              this.controller.isSearch.value = false;
+                              searController.clear();
+                              focus.unfocus();
+                            },
                             child: Icon(FastIcons.awesome.close)),
                         hintText: 'Pesquisar',
                         filled: true,
@@ -129,6 +123,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
               ),
               onPressed: () {
                 controller.isSearch.value = !controller.isSearch.value;
+                if (controller.isSearch.value) focus.requestFocus();
               },
               label: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),

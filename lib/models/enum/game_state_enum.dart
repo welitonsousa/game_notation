@@ -28,12 +28,22 @@ enum GameState {
     };
   }
 
+  int get id {
+    return switch (this) {
+      playing => 0,
+      finished => 1,
+      wishlist => 2,
+      platinum => 3,
+      paused => 4,
+    };
+  }
+
   static GameState? fromId(int? id) {
     return switch (id) {
       0 => playing,
       1 => finished,
-      2 => wishlist,
       3 => platinum,
+      2 => wishlist,
       4 => paused,
       _ => null,
     };

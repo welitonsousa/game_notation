@@ -11,6 +11,10 @@ Além disso, este aplicativo permite que os dados do usuário sejam salvos no Fi
 
 <a href="https://github.com/welitonsousa/game_notation/raw/main/assets/files/android.apk">Baixe o app para Android 🤖</a>
 
+<a href="https://github.com/welitonsousa/game_notation/raw/main/assets/files/game-notion.zip">Baixe o app para Windows 🪟</a>
+
+<a href="mailto: welitonubuntu@gmail.com">Me envie um email para testar o app no testflight 🍎</a>
+
 <br>
 
 <h2 align="center">Dark mode</h2>
