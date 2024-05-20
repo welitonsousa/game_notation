@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 enum GameState {
   playing,
   finished,
-  wishlist,
   platinum,
+  wishlist,
   paused;
 
   String get label {

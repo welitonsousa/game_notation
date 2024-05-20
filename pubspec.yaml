@@ -22,6 +22,7 @@ dependencies:
   fast_cached_network_image: ^1.2.9
   fast_ui_kit: ^1.0.16
   url_launcher: ^6.2.6
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -34,18 +35,74 @@ flutter:
 
   assets:
     - assets/images/
-  #   - images/a_dot_ham.jpeg
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Black.ttf
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+        - asset: assets/fonts/inter/Inter-ExtraBold.ttf
+        - asset: assets/fonts/inter/Inter-ExtraLight.ttf
+        - asset: assets/fonts/inter/Inter-Light.ttf
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+        - asset: assets/fonts/inter/Inter-Thin.ttf
+    - family: Comfortaa
+      fonts:
+        - asset: assets/fonts/comfortaa/Comfortaa-Bold.ttf
+        - asset: assets/fonts/comfortaa/Comfortaa-Light.ttf
+        - asset: assets/fonts/comfortaa/Comfortaa-Medium.ttf
+        - asset: assets/fonts/comfortaa/Comfortaa-Regular.ttf
+        - asset: assets/fonts/comfortaa/Comfortaa-SemiBold.ttf
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/lato/Lato-Black.ttf
+        - asset: assets/fonts/lato/Lato-BlackItalic.ttf
+        - asset: assets/fonts/lato/Lato-Bold.ttf
+        - asset: assets/fonts/lato/Lato-BoldItalic.ttf
+        - asset: assets/fonts/lato/Lato-Italic.ttf
+        - asset: assets/fonts/lato/Lato-Light.ttf
+        - asset: assets/fonts/lato/Lato-LightItalic.ttf
+        - asset: assets/fonts/lato/Lato-Regular.ttf
+        - asset: assets/fonts/lato/Lato-Thin.ttf
+        - asset: assets/fonts/lato/Lato-ThinItalic.ttf
+
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/oswald/Oswald-Bold.ttf
+        - asset: assets/fonts/oswald/Oswald-ExtraLight.ttf
+        - asset: assets/fonts/oswald/Oswald-Light.ttf
+        - asset: assets/fonts/oswald/Oswald-Medium.ttf
+        - asset: assets/fonts/oswald/Oswald-Regular.ttf
+        - asset: assets/fonts/oswald/Oswald-SemiBold.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Black.ttf
+        - asset: assets/fonts/roboto/Roboto-BlackItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/roboto/Roboto-BoldItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Italic.ttf
+        - asset: assets/fonts/roboto/Roboto-Light.ttf
+        - asset: assets/fonts/roboto/Roboto-LightItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Medium.ttf
+        - asset: assets/fonts/roboto/Roboto-MediumItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/roboto/Roboto-Thin.ttf
+        - asset: assets/fonts/roboto/Roboto-ThinItalic.ttf
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/ubuntu/UbuntuSans-Bold.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-BoldItalic.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-Italic.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-Light.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-LightItalic.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-Medium.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-MediumItalic.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-SemiBold.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-Regular.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-Thin.ttf
+        - asset: assets/fonts/ubuntu/UbuntuSans-ThinItalic.ttf
   #
 msix_config:
   display_name: Game Notion

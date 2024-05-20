@@ -53,9 +53,9 @@ class GameCardWidget extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: Container(
                     padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                      color: Colors.deepPurpleAccent,
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      color: context.theme.colorScheme.primary,
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(1000),
                         topRight: Radius.circular(200),
                       ),

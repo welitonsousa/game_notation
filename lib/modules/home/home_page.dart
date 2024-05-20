@@ -1,7 +1,7 @@
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:game_notion/core/ui/app_state.dart';
-import 'package:game_notion/core/ui/dialogs/logout_dialog.dart';
 import 'package:game_notion/core/ui/widgets/app_app_bar.dart';
+import 'package:game_notion/core/ui/widgets/app_drawer.dart';
 import 'package:game_notion/core/ui/widgets/app_empty.dart';
 import 'package:game_notion/core/ui/widgets/app_loading.dart';
 import 'package:game_notion/models/enum/game_state_enum.dart';
@@ -23,21 +23,11 @@ class _HomePageState extends AppState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
+        drawer: const AppDrawer(),
         appBar: AppAppBar(
           title: controller.pageGameState.value.label,
           onSearch: controller.localFilter,
           hint: 'Pesquisar jogos salvos',
-          leading: IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => const LogoutDialog(),
-              );
-            },
-            color: Colors.red,
-            tooltip: 'Sair',
-            icon: const Icon(Icons.exit_to_app),
-          ),
         ),
         body: Visibility(
           visible: controller.loading.value,
