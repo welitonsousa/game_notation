@@ -17,7 +17,7 @@ class GameItemDetail extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 22),
         ),
-        initiallyExpanded: true,
+        initiallyExpanded: false,
         children: [child],
       ),
     );

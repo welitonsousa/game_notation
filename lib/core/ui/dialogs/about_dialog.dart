@@ -1,7 +1,9 @@
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:fast_ui_kit/fast_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:game_notion/core/ui/app_message.dart';
+import 'package:game_notion/core/ui/widgets/app_image.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AppAboutDialog extends StatelessWidget {
@@ -26,13 +28,25 @@ class AppAboutDialog extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.network(
-                    'https://github.com/welitonsousa.png',
-                    width: 100,
-                    height: 100,
+              GestureDetector(
+                onTap: () {
+                  showImageViewer(
+                      context,
+                      AppImageCached.provider(
+                           'https://github.com/welitonsousa.png'),
+                      useSafeArea: true,
+                      swipeDismissible: true,
+                      immersive: true,
+                    );
+                },
+                child: Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.network(
+                      'https://github.com/welitonsousa.png',
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
                 ),
               ),

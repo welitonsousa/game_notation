@@ -12,7 +12,11 @@ class AppEmpty extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset('assets/images/empty.svg', width: 200, height: 200),
+          SvgPicture.asset(
+            'assets/images/empty.svg',
+            width: 200,
+            height: 200,
+          ),
           const SizedBox(height: 20),
           if (message != null) ...[
             Text(message!),

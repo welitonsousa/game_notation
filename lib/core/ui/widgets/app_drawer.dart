@@ -28,9 +28,6 @@ class _AppDrawerState extends State<AppDrawer> {
       child: ListView(
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: context.theme.colorScheme.primaryContainer,
-            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

@@ -16,24 +16,41 @@ class SearchGamesWidget extends StatefulWidget {
 }
 
 class _SearchGamesWidgetState extends State<SearchGamesWidget> {
-  final controller = Get.find<HomeController>();
   final searController = TextEditingController();
+  final controller = Get.find<HomeController>();
   final focus = FocusNode();
+  final isSearch = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+    focus.addListener(listener);
+  }
 
   @override
   void dispose() {
     searController.dispose();
+    focus.removeListener(listener);
     focus.dispose();
+    isSearch.dispose();
     super.dispose();
+  }
+
+  void listener() {
+    if (!focus.hasFocus) {
+      isSearch.value = false;
+      searController.clear();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Column(
+    return AnimatedBuilder(
+      animation: isSearch,
+      builder: (context, value) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (controller.isSearch.value)
+          if (isSearch.value)
             FastAnimate(
               type: FastAnimateType.elasticInRight,
               duration: const Duration(milliseconds: 1000),
@@ -44,7 +61,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                   controller: searController,
                   onSelected: (game) async {
                     focus.unfocus();
-                    controller.isSearch.value = false;
+                    isSearch.value = false;
                     await Get.toNamed(
                       "${AppPages.gameDetail}/${game.id}",
                       arguments: game.id,
@@ -61,7 +78,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                       decoration: InputDecoration(
                         suffixIcon: GestureDetector(
                             onTap: () {
-                              this.controller.isSearch.value = false;
+                              isSearch.value = false;
                               searController.clear();
                               focus.unfocus();
                             },
@@ -122,8 +139,8 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                 elevation: 2,
               ),
               onPressed: () {
-                controller.isSearch.value = !controller.isSearch.value;
-                if (controller.isSearch.value) focus.requestFocus();
+                isSearch.value = !isSearch.value;
+                if (isSearch.value) focus.requestFocus();
               },
               label: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),
@@ -132,7 +149,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
               icon: Icon(FastIcons.awesome.gamepad),
             )
         ],
-      );
-    });
+      ),
+    );
   }
 }
