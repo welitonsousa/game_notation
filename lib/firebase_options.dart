@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -77,4 +74,14 @@ class DefaultFirebaseOptions {
     authDomain: 'game-notion.firebaseapp.com',
     storageBucket: 'game-notion.appspot.com',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyB4uMTUZ5H6dCImKJQc8mmrlu6KDaisP78',
+    appId: '1:682329935211:web:119ee1155fb240053f102e',
+    messagingSenderId: '682329935211',
+    projectId: 'game-notion',
+    authDomain: 'game-notion.firebaseapp.com',
+    storageBucket: 'game-notion.appspot.com',
+  );
+
 }

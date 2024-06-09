@@ -63,7 +63,7 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                     focus.unfocus();
                     isSearch.value = false;
                     await Get.toNamed(
-                      "${AppPages.gameDetail}/${game.id}",
+                      '${AppPages.gameDetail}/${game.id}',
                       arguments: game.id,
                       preventDuplicates: false,
                     );

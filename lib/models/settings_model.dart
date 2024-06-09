@@ -19,12 +19,12 @@ class SettingsModel {
   }
 
   static List<String> get fonts => [
-        "Inter",
-        "Comfortaa",
-        "Roboto",
-        "Oswald",
-        "Lato",
-        "Ubuntu",
+        'Inter',
+        'Comfortaa',
+        'Roboto',
+        'Oswald',
+        'Lato',
+        'Ubuntu',
       ];
 
   static SettingsModel fromJson(Map<String, dynamic> json) {

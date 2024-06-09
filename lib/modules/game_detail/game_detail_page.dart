@@ -44,7 +44,7 @@ class _GameDetailPageState extends State<GameDetailPage> {
     return Scaffold(
       floatingActionButton: const SearchGamesWidget(),
       appBar: AppBar(
-        title: const Text("Detalhes do jogo"),
+        title: const Text('Detalhes do jogo'),
         actions: [
           Obx(() {
             if (controller.game.value != null) {

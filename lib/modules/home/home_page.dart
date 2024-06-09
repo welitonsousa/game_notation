@@ -25,27 +25,41 @@ class _HomePageState extends AppState<HomePage, HomeController> {
       return Scaffold(
         drawer: const AppDrawer(),
         appBar: AppAppBar(
-          title: controller.pageGameState.value.label,
-          onSearch: controller.localFilter,
+          title: GameState.values[controller.page.value].label,
+          onSearch: (v) {
+            setState(() {
+              controller.localFilter(v);
+            });
+          },
           hint: 'Pesquisar jogos salvos',
         ),
         body: Visibility(
           visible: controller.loading.value,
-          replacement: Visibility(
-            visible: controller.games.isNotEmpty,
-            replacement: const AppEmpty(),
-            child: GridView.builder(
-              padding: const EdgeInsets.all(10),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 240,
-                mainAxisExtent: 240,
-              ),
-              itemCount: controller.games.length,
-              itemBuilder: (context, index) {
-                final game = controller.games[index];
-                return GameCardWidget(game: game);
-              },
-            ),
+          replacement: PageView.builder(
+            itemCount: GameState.values.length,
+            onPageChanged: (value) {
+              controller.page.value = value;
+            },
+            controller: controller.pageViewController,
+            itemBuilder: (c, i) {
+              final state = GameState.values[i];
+              return Visibility(
+                visible: controller.games(state).isNotEmpty,
+                replacement: const AppEmpty(),
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(10),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 240,
+                    mainAxisExtent: 240,
+                  ),
+                  itemCount: controller.games(state).length,
+                  itemBuilder: (context, index) {
+                    final game = controller.games(state)[index];
+                    return GameCardWidget(game: game);
+                  },
+                ),
+              );
+            },
           ),
           child: const AppLoading(),
         ),
@@ -61,14 +75,19 @@ class _HomePageState extends AppState<HomePage, HomeController> {
             ],
           ),
           child: SnakeNavigationBar.color(
-            currentIndex: controller.pageGameState.value.index,
+            currentIndex: controller.page.value,
             showUnselectedLabels: context.isTablet,
             showSelectedLabels: context.isTablet,
             snakeViewColor: context.theme.buttonTheme.colorScheme?.primary,
             unselectedItemColor: context.theme.buttonTheme.colorScheme?.primary,
             snakeShape: SnakeShape.rectangle,
             onTap: (index) {
-              controller.pageGameState.value = GameState.values[index];
+              controller.page.value = index;
+              controller.pageViewController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+              );
             },
             items: GameState.values.map((e) {
               return BottomNavigationBarItem(

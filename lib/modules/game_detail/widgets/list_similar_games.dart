@@ -37,7 +37,7 @@ class _ListSimilarGamesState extends State<ListSimilarGames> {
               return GestureDetector(
                 onTap: () async {
                   await Get.toNamed(
-                    "${AppPages.gameDetail}/${g.id}",
+                    '${AppPages.gameDetail}/${g.id}',
                     arguments: g.id,
                     preventDuplicates: false,
                   );

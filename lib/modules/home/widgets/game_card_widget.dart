@@ -14,7 +14,7 @@ class GameCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         await Get.toNamed(
-          "${AppPages.gameDetail}/${game.id}",
+          '${AppPages.gameDetail}/${game.id}',
           arguments: game.id,
           preventDuplicates: false,
         );

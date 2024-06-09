@@ -47,7 +47,7 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Text(user.email!, style: context.H3),
           ),
           ExpansionTile(
-            title: const Text("Tema"),
+            title: const Text('Tema'),
             leading: Icon(FastIcons.awesome.pencil_square),
             children: List.generate(
               ThemeMode.values.length,
@@ -69,7 +69,7 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
           ),
           ExpansionTile(
-              title: const Text("Cor do app"),
+              title: const Text('Cor do app'),
               leading: const Icon(Icons.palette),
               children: [
                 Padding(
@@ -113,7 +113,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               ]),
           ExpansionTile(
-            title: const Text("Fonte"),
+            title: const Text('Fonte'),
             leading: Icon(FastIcons.awesome.font),
             children: List.generate(
               SettingsModel.fonts.length,
@@ -137,12 +137,10 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('Sobre'),
             onTap: () async {
               Get.back();
-              await Future.delayed(const Duration(milliseconds: 300)).then((v) {
-                showDialog(
-                  context: context,
-                  builder: (context) => const AppAboutDialog(),
-                );
-              });
+              showDialog(
+                context: context,
+                builder: (context) => const AppAboutDialog(),
+              );
             },
           ),
           ListTile(
@@ -150,12 +148,10 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('Sair'),
             onTap: () async {
               Get.back();
-              await Future.delayed(const Duration(milliseconds: 300)).then((v) {
-                showDialog(
-                  context: context,
-                  builder: (context) => const LogoutDialog(),
-                );
-              });
+              showDialog(
+                context: context,
+                builder: (context) => const LogoutDialog(),
+              );
             },
           )
         ],

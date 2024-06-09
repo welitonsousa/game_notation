@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/models/game_small_model.dart';
 import 'package:game_notion/remote/services/games/games_sevice.dart';
@@ -9,19 +10,21 @@ class HomeController extends GetxController {
 
   HomeController({required this.gameService});
 
-  final pageGameState = GameState.finished.obs;
+  static const INITIAl_PAGE = 1;
+
   final isSearch = false.obs;
   final localFilter = ''.obs;
   final loading = true.obs;
+  final page = INITIAl_PAGE.obs;
+  final pageViewController = PageController(initialPage: INITIAl_PAGE);
 
   final allGames = <GameSmallModel>[].obs;
-  List<GameSmallModel> get games {
+  List<GameSmallModel> games(GameState state) {
     var list = allGames.where((g) {
-      if (pageGameState.value == GameState.finished &&
-          g.state == GameState.platinum) {
+      if (state == GameState.finished && g.state == GameState.platinum) {
         return true;
       }
-      return g.state == pageGameState.value;
+      return g.state == state;
     });
     list = list.where((g) {
       return g.name.toLowerCase().contains(localFilter.value.toLowerCase());

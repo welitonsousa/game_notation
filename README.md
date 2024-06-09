@@ -7,6 +7,18 @@ Este é um aplicativo Flutter que utiliza o pacote GetX para gerenciamento de es
 
 Além disso, este aplicativo permite que os dados do usuário sejam salvos no Firebase Storage, possibilitando o acesso a esses dados em outros dispositivos. Ele oferece suporte às plataformas Android, iOS, macOS, Windows e Linux.
 
+
+### Features
+✅ Change theme (system, light, dark)<br>
+✅ Change primary color<br>
+✅ Change fonte<br>
+
+### Plataformas
+✅ Android<br>
+✅ IOS<br>
+✅ MacOS<br>
+✅ Windows<br>
+
 <br>
 
 <a href="https://github.com/welitonsousa/game_notation/raw/main/assets/files/android.apk">Baixe o app para Android 🤖</a>
@@ -17,22 +29,32 @@ Além disso, este aplicativo permite que os dados do usuário sejam salvos no Fi
 
 <br>
 
-<h2 align="center">Dark mode</h2>
-<p align="center">
-    <img src="./assets/screenshots/ios-dark.png" width="270" height="520"/>
-    <img src="./assets/screenshots/android-dark.png" width="220" height="500"/>
-</p>
-
-<h2 align="center">Light mode</h2>
+<h2 align="center">IOS</h2>
 <p align="center">
     <img src="./assets/screenshots/ios-light.png" width="250" height="500"/>
-    <img src="./assets/screenshots/android-light.png" width="220" height="500"/>
+    <img src="./assets/screenshots/ios-dark.png" width="250" height="500"/>
 </p>
 
-<h2 align="center">Windows</h2>
+<h2 align="center">Androd</h2>
+<p align="center">
+    <img src="./assets/screenshots/android-light.png" width="250" height="500"/>
+    <img src="./assets/screenshots/android-dark.png" width="250" height="500"/>
+</p>
+
+<h2 align="center">Ipad / Tablet</h2>
+<p align="center">
+    <img src="./assets/screenshots/ipad-light.png"  width="420" height="600"/>
+</p>
+
+<h2 align="center">MacOS</h2>
+<p align="center">
+    <img src="./assets/screenshots/mac-light.png"  width="620" height="400"/>
+</p>
+
+<h2 align="center">Windows (DEMO)</h2>
 
 <p align="center">
-    <img src="./assets/screenshots/game-notion.gif" />
+    <img src="./assets/screenshots/game-notion.gif" width="620" height="300" />
 
 </p>
 
@@ -53,5 +75,5 @@ flutter run
 <br>
 <br>
 <p align="center">
-   Feito com ❤️ by <b>welitonsousa</b>
+   Feito com ❤️ by <a href="https://welitonsousa.vercel.app" target="_blank"><b>welitonsousa</b></a>
 </p>

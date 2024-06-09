@@ -17,13 +17,13 @@ class SignInController extends GetxController {
       Get.offAndToNamed(AppPages.home);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
-        AppMessage.error("Senha inválida");
+        AppMessage.error('Senha inválida');
       } else if (e.code == 'user-not-found') {
-        AppMessage.error("Usuário não cadastrado");
+        AppMessage.error('Usuário não cadastrado');
       } else if (e.code == 'too-many-requests') {
-        AppMessage.error("Muitas tentativas de login");
+        AppMessage.error('Muitas tentativas de login');
       } else {
-        AppMessage.error("Não foi possível realizar o login");
+        AppMessage.error('Não foi possível realizar o login');
       }
     } finally {
       loading.value = false;
