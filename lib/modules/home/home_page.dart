@@ -43,22 +43,26 @@ class _HomePageState extends AppState<HomePage, HomeController> {
             controller: controller.pageViewController,
             itemBuilder: (c, i) {
               final state = GameState.values[i];
-              return Visibility(
-                visible: controller.games(state).isNotEmpty,
-                replacement: const AppEmpty(),
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(10),
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 240,
-                    mainAxisExtent: 240,
+              return Obx(() {
+                final games = controller.games(state);
+                return Visibility(
+                  visible: controller.games(state).isNotEmpty,
+                  replacement: const AppEmpty(),
+                  child: GridView.builder(
+                    padding: const EdgeInsets.all(10),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 240,
+                      mainAxisExtent: 240,
+                    ),
+                    itemCount: games.length,
+                    itemBuilder: (context, index) {
+                      final game = games[index];
+                      return GameCardWidget(game: game);
+                    },
                   ),
-                  itemCount: controller.games(state).length,
-                  itemBuilder: (context, index) {
-                    final game = controller.games(state)[index];
-                    return GameCardWidget(game: game);
-                  },
-                ),
-              );
+                );
+              });
             },
           ),
           child: const AppLoading(),

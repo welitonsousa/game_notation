@@ -56,10 +56,10 @@ class GameDetailController extends GetxController {
     game.refresh();
   }
 
-  void changeGameState(GameState state) {
+  Future<void> changeGameState(GameState state) async {
     if (game.value == null) return;
 
     game.value!.state = state;
-    gameService.saveGame(game: game.value!.toSmallModel());
+    await gameService.saveGame(game: game.value!.toSmallModel());
   }
 }
