@@ -1,4 +1,5 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:flutter/material.dart';
 import 'package:game_notion/core/extensions/string_ext.dart';
 import 'package:game_notion/core/ui/widgets/app_error.dart';
 import 'package:game_notion/core/ui/widgets/app_image.dart';
@@ -8,7 +9,7 @@ import 'package:game_notion/modules/game_detail/widgets/list_similar_games.dart'
 import 'package:game_notion/modules/game_detail/widgets/screenshots_grid.dart';
 import 'package:game_notion/modules/home/widgets/search_games_widget.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
+
 import './game_detail_controller.dart';
 import 'widgets/favorite_button_widget.dart';
 import 'widgets/game_item_detail.dart';
@@ -24,10 +25,11 @@ class GameDetailPage extends StatefulWidget {
 
 class _GameDetailPageState extends State<GameDetailPage> {
   late final GameDetailController controller;
-
+  final yearController = TextEditingController();
   @override
   void initState() {
     final gameId = Get.parameters['id'];
+
     Get.put(
       tag: gameId,
       GameDetailController(
@@ -165,6 +167,24 @@ class _GameDetailPageState extends State<GameDetailPage> {
                       onChange: controller.changeGameState,
                       state: controller.gameState!,
                     ),
+                  // if ([GameState.finished, GameState.platinum]
+                  //     .contains(controller.gameState)) ...[
+                  //   FastFormField(
+                  //     controller: yearController,
+                  //     label: 'Ano',
+                  //     onChanged: (v) {
+                  //       if (v.length == 4) {
+                  //         controller.saveYear(v);
+                  //       }
+                  //     },
+                  //     textInputType: TextInputType.number,
+                  //     validator: Zod().optional().min(4).max(4).build,
+                  //     mask: [
+                  //       Mask.generic(masks: ['####'])
+                  //     ],
+                  //   ),
+                  //   const SizedBox(height: 20),
+                  // ],
                   SelectableText(
                     controller.game.value!.summary,
                     textAlign: TextAlign.justify,

@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:game_notion/models/enum/game_state_enum.dart';
 
 class SettingsModel {
   Color themeColor;
   ThemeMode themeMode;
   String fontName;
+  List<GameState> gameStates;
+
   SettingsModel({
     this.themeColor = Colors.deepPurple,
     this.themeMode = ThemeMode.system,
     this.fontName = 'Inter',
+    this.gameStates = const [
+      GameState.playing,
+      GameState.finished,
+      GameState.platinum,
+      GameState.wishlist,
+      GameState.paused,
+    ],
   });
 
   toJson() {
@@ -15,6 +25,7 @@ class SettingsModel {
       'themeColor': themeColor.value,
       'themeMode': themeMode.index,
       'fontName': fontName,
+      'gameStates': gameStates.map((e) => e.index).toList(),
     };
   }
 
@@ -32,6 +43,9 @@ class SettingsModel {
       themeColor: Color(json['themeColor']),
       themeMode: ThemeMode.values[json['themeMode']],
       fontName: json['fontName'],
+      gameStates: json['gameStates']
+          .map<GameState>((e) => GameState.values[e])
+          .toList(),
     );
   }
 

@@ -1,14 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:game_notion/core/settings/user_settings_controller.dart';
 import 'package:game_notion/core/ui/app_state.dart';
 import 'package:game_notion/core/ui/widgets/app_app_bar.dart';
 import 'package:game_notion/core/ui/widgets/app_drawer.dart';
 import 'package:game_notion/core/ui/widgets/app_empty.dart';
 import 'package:game_notion/core/ui/widgets/app_loading.dart';
-import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/modules/home/widgets/game_card_widget.dart';
 import 'package:game_notion/modules/home/widgets/search_games_widget.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
+
 import './home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,9 +24,13 @@ class _HomePageState extends AppState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
+        onDrawerChanged: (isOpened) {
+          setState(() {});
+        },
         drawer: const AppDrawer(),
         appBar: AppAppBar(
-          title: GameState.values[controller.page.value].label,
+          title: UserSettingsController
+              .instance.settings.gameStates[controller.page.value].label,
           onSearch: (v) {
             setState(() {
               controller.localFilter(v);
@@ -36,13 +41,15 @@ class _HomePageState extends AppState<HomePage, HomeController> {
         body: Visibility(
           visible: controller.loading.value,
           replacement: PageView.builder(
-            itemCount: GameState.values.length,
+            itemCount:
+                UserSettingsController.instance.settings.gameStates.length,
             onPageChanged: (value) {
               controller.page.value = value;
             },
             controller: controller.pageViewController,
             itemBuilder: (c, i) {
-              final state = GameState.values[i];
+              final state =
+                  UserSettingsController.instance.settings.gameStates[i];
               return Obx(() {
                 final games = controller.games(state);
                 return Visibility(
@@ -93,7 +100,7 @@ class _HomePageState extends AppState<HomePage, HomeController> {
                 curve: Curves.easeOut,
               );
             },
-            items: GameState.values.map((e) {
+            items: UserSettingsController.instance.settings.gameStates.map((e) {
               return BottomNavigationBarItem(
                 icon: Icon(e.icon),
                 label: e.label,

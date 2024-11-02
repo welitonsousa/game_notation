@@ -1,11 +1,13 @@
 import 'package:fast_ui_kit/extension/text.dart';
 import 'package:fast_ui_kit/icons/icons.dart';
+import 'package:fast_ui_kit/ui/widgets/button_group.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:game_notion/core/settings/user_settings_controller.dart';
 import 'package:game_notion/core/ui/dialogs/about_dialog.dart';
 import 'package:game_notion/core/ui/dialogs/logout_dialog.dart';
+import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/models/settings_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -131,6 +133,19 @@ class _AppDrawerState extends State<AppDrawer> {
                 );
               },
             ),
+          ),
+          ExpansionTile(
+            title: const Text('Listas'),
+            leading: Icon(FastIcons.awesome.gamepad),
+            children: [
+              FastButtonGroup(
+                values: GameState.values,
+                callback: (v) {
+                  userSettings.changeGemeStates(v);
+                },
+                initial: userSettings.settings.gameStates,
+              )
+            ],
           ),
           ListTile(
             leading: Icon(FastIcons.awesome.user),

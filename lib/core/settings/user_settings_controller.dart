@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/models/settings_model.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -25,6 +26,11 @@ class UserSettingsController extends ChangeNotifier {
 
   void changeThemeColor(Color color) {
     settings.themeColor = color;
+    save();
+  }
+
+  void changeGemeStates(List<GameState> states) {
+    settings.gameStates = states;
     save();
   }
 

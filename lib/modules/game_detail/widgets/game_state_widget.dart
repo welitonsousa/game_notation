@@ -1,5 +1,6 @@
 import 'package:fast_ui_kit/fast_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:game_notion/core/settings/user_settings_controller.dart';
 import 'package:game_notion/models/enum/game_state_enum.dart';
 
 class GameStateWidget extends StatelessWidget {
@@ -24,7 +25,7 @@ class GameStateWidget extends StatelessWidget {
           },
           allowEmpty: false,
           multiple: false,
-          values: GameState.values,
+          values: UserSettingsController.instance.settings.gameStates,
           initial: [state],
         ),
       ),

@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: settings,
+        animation: UserSettingsController.instance,
         builder: (context, child) {
           final theme = FastTheme(
             seed: settings.settings.themeColor,
