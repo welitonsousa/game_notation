@@ -1,5 +1,3 @@
-import 'package:game_notion/models/game_model.dart';
-
 import 'cover_model.dart';
 import 'enum/game_state_enum.dart';
 
@@ -25,15 +23,6 @@ class GameSmallModel {
     );
 
     return res;
-  }
-
-  factory GameSmallModel.fromGameModel(GameModel game) {
-    return GameSmallModel(
-      id: game.id,
-      name: game.name,
-      cover: game.cover,
-      state: game.state,
-    );
   }
 
   Map<String, dynamic> toJson() {

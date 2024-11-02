@@ -1,6 +1,6 @@
 name: game_notion
 description: "A new Flutter project."
-version: 1.0.1+2
+version: 1.0.3+6
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -37,6 +37,7 @@ flutter:
 
   assets:
     - assets/images/
+    - shorebird.yaml
   fonts:
     - family: Inter
       fonts:
