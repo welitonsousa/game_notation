@@ -83,5 +83,4 @@ class DefaultFirebaseOptions {
     authDomain: 'game-notion.firebaseapp.com',
     storageBucket: 'game-notion.appspot.com',
   );
-
 }

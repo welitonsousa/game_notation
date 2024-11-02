@@ -10,7 +10,7 @@ class RestClient extends DioForNative {
   Options auth() {
     return Options(
       headers: {
-        'Client-ID': Env.clientID,
+        'Client-ID': Env.TWITCH_CLIENT_ID,
         'Authorization': 'Bearer ${Env.token}'
       },
     );

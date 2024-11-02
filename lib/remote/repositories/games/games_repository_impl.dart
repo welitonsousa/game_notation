@@ -81,8 +81,8 @@ class GameRepositoryImpl implements GameRepository {
 
     final res =
         await Dio().post('https://id.twitch.tv/oauth2/token', queryParameters: {
-      'client_id': Env.clientID,
-      'client_secret': Env.clientSecret,
+      'client_id': Env.TWITCH_CLIENT_ID,
+      'client_secret': Env.TWITCH_CLIENT_SECRET,
       'grant_type': 'client_credentials',
     });
 

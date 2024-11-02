@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fast_ui_kit/ui/theme/fast_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,8 @@ import 'splash_main.dart';
 
 Future<void> main() async {
   var theme = FastTheme(seed: Colors.deepPurpleAccent);
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(SplashMain(theme: theme));
   await AppInitialize.initialize();
   UserSettingsController.initialize();
@@ -61,5 +65,14 @@ class _MyAppState extends State<MyApp> {
             getPages: AppPages.pages,
           );
         });
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

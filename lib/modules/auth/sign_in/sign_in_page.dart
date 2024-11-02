@@ -1,11 +1,12 @@
 import 'package:fast_ui_kit/ui/widgets/animate.dart';
 import 'package:fast_ui_kit/ui/widgets/button.dart';
 import 'package:fast_ui_kit/ui/widgets/form_field.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:game_notion/core/ui/dialogs/reset_password_dialog.dart';
 import 'package:game_notion/routers/pages.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
+
 import './sign_in_controller.dart';
 
 class SignInPage extends StatefulWidget {
@@ -51,7 +52,6 @@ class _SignInPageState extends State<SignInPage> {
               constraints: const BoxConstraints(maxWidth: 400),
               padding: const EdgeInsets.all(10),
               child: Card(
-
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Form(
@@ -98,6 +98,13 @@ class _SignInPageState extends State<SignInPage> {
                             },
                           );
                         }),
+                        const SizedBox(height: 10),
+                        FastButton(
+                          label: 'Entrar com Google',
+                          background: Colors.red,
+                          loading: controller.loading.value,
+                          onPressed: controller.signInWithGoogle,
+                        ),
                         TextButton(
                           onPressed: () => Get.toNamed(AppPages.signUp),
                           child: const Text('Cadastrar'),
