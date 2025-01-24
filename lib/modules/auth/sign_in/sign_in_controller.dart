@@ -40,6 +40,7 @@ class SignInController extends GetxController {
   Future<void> signInWithGoogle() async {
     late GoogleSignIn google;
     final clientID = DefaultFirebaseOptions.currentPlatform.iosClientId;
+    // print('client id $clientID');
     const appID = Env.OAUTH_CLIENT_ID;
 
     if (Platform.isWindows) {
@@ -50,17 +51,17 @@ class SignInController extends GetxController {
     } else if (Platform.isIOS) {
       google = GoogleSignIn(clientId: clientID);
     }
-    await google.signOut();
+    await Future.wait([
+      google.signOut(),
+      FirebaseAuth.instance.signOut(),
+    ]);
 
     final res = await google.signIn();
-
     final googleAuth = await res?.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-
-    await FirebaseAuth.instance.signOut();
 
     await FirebaseAuth.instance.signInWithCredential(credential);
     Get.offAndToNamed(AppPages.home);

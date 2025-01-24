@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             theme: theme.light,
             themeMode: settings.settings.themeMode,
             debugShowCheckedModeBanner: false,
-            initialRoute: AppPages.signIn,
+            initialRoute: FirebaseAuth.instance.currentUser != null ? AppPages.home : AppPages.signIn,
             getPages: AppPages.pages,
           );
         });

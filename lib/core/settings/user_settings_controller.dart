@@ -9,6 +9,9 @@ class UserSettingsController extends ChangeNotifier {
   static UserSettingsController get instance =>
       _instance ??= UserSettingsController._();
 
+  static UserSettingsController get i =>
+      _instance ??= UserSettingsController._();
+
   var settings = SettingsModel();
 
   static SettingsModel initialize() {
@@ -18,6 +21,8 @@ class UserSettingsController extends ChangeNotifier {
     }
     return instance.settings;
   }
+
+  List<GameState> get states => settings.gameStates;
 
   void save() {
     GetStorage().write('settings', settings.toJson());

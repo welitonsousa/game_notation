@@ -23,14 +23,16 @@ class _HomePageState extends AppState<HomePage, HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      final state = UserSettingsController.i.states[controller.page.value];
+      final label = state.label;
+      final title = '$label (${controller.games(state).length})';
       return Scaffold(
         onDrawerChanged: (isOpened) {
           setState(() {});
         },
         drawer: const AppDrawer(),
         appBar: AppAppBar(
-          title: UserSettingsController
-              .instance.settings.gameStates[controller.page.value].label,
+          title: title,
           onSearch: (v) {
             setState(() {
               controller.localFilter(v);

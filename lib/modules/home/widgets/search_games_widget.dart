@@ -18,29 +18,14 @@ class SearchGamesWidget extends StatefulWidget {
 class _SearchGamesWidgetState extends State<SearchGamesWidget> {
   final searController = TextEditingController();
   final controller = Get.find<HomeController>();
-  final focus = FocusNode();
   final isSearch = ValueNotifier(false);
-
-  @override
-  void initState() {
-    super.initState();
-    focus.addListener(listener);
-  }
+final focus = FocusNode();
 
   @override
   void dispose() {
     searController.dispose();
-    focus.removeListener(listener);
-    focus.dispose();
     isSearch.dispose();
     super.dispose();
-  }
-
-  void listener() {
-    if (!focus.hasFocus) {
-      isSearch.value = false;
-      searController.clear();
-    }
   }
 
   @override
@@ -57,11 +42,18 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: TypeAheadField<GameSmallModel>(
-                  focusNode: focus,
                   controller: searController,
+                  focusNode: focus,
+                  emptyBuilder: (context) {
+                    var text = 'Nenhum jogo encontrado';
+                    if (searController.text.isEmpty) {
+                      text = 'Comece a digitar para pesquisar';
+                    }
+                    return  Padding(
+                      padding: const EdgeInsetsDirectional.only(top: 30,  bottom: 30, start: 10,),
+                      child:  Text(text));
+                  },
                   onSelected: (game) async {
-                    focus.unfocus();
-                    isSearch.value = false;
                     await Get.toNamed(
                       '${AppPages.gameDetail}/${game.id}',
                       arguments: game.id,
@@ -69,7 +61,6 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                     );
                   },
                   autoFlipDirection: true,
-                  hideOnEmpty: true,
                   builder: (context, controller, child) {
                     return TextFormField(
                       controller: controller,
@@ -80,7 +71,6 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                             onTap: () {
                               isSearch.value = false;
                               searController.clear();
-                              focus.unfocus();
                             },
                             child: Icon(FastIcons.awesome.close)),
                         hintText: 'Pesquisar',
@@ -91,13 +81,29 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
                       ),
                     );
                   },
+                  
                   suggestionsCallback: (v) async {
                     final res = await controller.searchGames(q: v);
                     return res;
                   },
+
+                  listBuilder: (c, list) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: list,
+                      ),
+                    );
+                  },
+
+                  // itemSeparatorBuilder: (context, index) {
+                  //   if (index == controller.games.length - 2) {
+                  //     return const SizedBox(height: 50, width: 10, child: CircularProgressIndicator());
+                  //   }
+                  //   return const SizedBox();
+                  // },
                   itemBuilder: (context, suggestion) {
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(10),
                       child: ListTile(
                         title: Text(suggestion.name),
                         leading: SizedBox(
@@ -140,7 +146,6 @@ class _SearchGamesWidgetState extends State<SearchGamesWidget> {
               ),
               onPressed: () {
                 isSearch.value = !isSearch.value;
-                if (isSearch.value) focus.requestFocus();
               },
               label: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),
