@@ -27,6 +27,9 @@ dependencies:
   google_sign_in: ^6.2.1
   google_sign_in_dartio: ^0.3.0
   extension_google_sign_in_as_googleapis_auth: ^2.0.12
+  reorderables: ^0.6.0
+  search_select: ^1.0.11
+  material_symbols_icons: ^4.2815.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

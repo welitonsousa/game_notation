@@ -1,5 +1,4 @@
 import 'package:game_notion/models/cover_model.dart';
-import 'package:game_notion/models/enum/game_state_enum.dart';
 import 'package:game_notion/models/game_external_model.dart';
 import 'package:game_notion/models/game_small_model.dart';
 import 'package:game_notion/models/platform_model.dart';
@@ -15,7 +14,7 @@ class GameModel {
   final String summary;
   final List<VideoModel> videos;
   final List<CoverModel> artworks;
-  GameState? state;
+  List<int> state;
 
   GameModel({
     required this.id,
@@ -27,13 +26,13 @@ class GameModel {
     required this.videos,
     required this.artworks,
     this.cover,
-    this.state,
+    required this.state,
   });
 
   factory GameModel.fromJson(json) {
     final res = GameModel(
       id: json['id'],
-      state: GameState.fromId(json['state']),
+      state: json['state'] != null ? List<int>.from(json['state']) : [],
       cover: json['cover'] != null ? CoverModel.fromJson(json['cover']) : null,
       similarGames: (json['similar_games'] ?? [])
           .map<ExternalGameModel>(ExternalGameModel.fromJson)

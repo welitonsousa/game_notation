@@ -6,5 +6,5 @@ abstract class GameService {
   Future<GameModel> getGameById({required int id});
   Future<void> saveGame({required GameSmallModel game});
   Future<void> removeGame({required int id});
-  Stream<List<GameSmallModel>>? gamesStream();
+  Stream<List<GameSmallModel?>>? gamesStream();
 }

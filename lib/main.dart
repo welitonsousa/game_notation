@@ -16,7 +16,7 @@ Future<void> main() async {
 
   runApp(SplashMain(theme: theme));
   await AppInitialize.initialize();
-  UserSettingsController.initialize();
+  await UserSettingsController.initialize();
 
   runApp(const MyApp());
 }
@@ -61,7 +61,9 @@ class _MyAppState extends State<MyApp> {
             theme: theme.light,
             themeMode: settings.settings.themeMode,
             debugShowCheckedModeBanner: false,
-            initialRoute: FirebaseAuth.instance.currentUser != null ? AppPages.home : AppPages.signIn,
+            initialRoute: FirebaseAuth.instance.currentUser != null
+                ? AppPages.home
+                : AppPages.signIn,
             getPages: AppPages.pages,
           );
         });

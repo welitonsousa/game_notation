@@ -5,6 +5,6 @@ abstract class GameRepository {
   Future<List<GameSmallModel>> searchGames({required String q});
   Future<GameModel> getGameById({required int id});
   Future<void> saveGame({required GameSmallModel game});
-  Stream<List<GameSmallModel>>? gamesStream();
+  Stream<List<GameSmallModel?>>? gamesStream();
   Future<void> removeGame({required int id});
 }

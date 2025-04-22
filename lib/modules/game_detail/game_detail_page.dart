@@ -1,17 +1,18 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:game_notion/core/extensions/string_ext.dart';
+import 'package:game_notion/core/settings/user_settings_controller.dart';
 import 'package:game_notion/core/ui/widgets/app_error.dart';
 import 'package:game_notion/core/ui/widgets/app_image.dart';
 import 'package:game_notion/core/ui/widgets/app_loading.dart';
-import 'package:game_notion/modules/game_detail/widgets/game_state_widget.dart';
+import 'package:game_notion/models/game_item_list_model.dart';
 import 'package:game_notion/modules/game_detail/widgets/list_similar_games.dart';
 import 'package:game_notion/modules/game_detail/widgets/screenshots_grid.dart';
 import 'package:game_notion/modules/home/widgets/search_games_widget.dart';
 import 'package:get/get.dart';
+import 'package:search_select/search_select.dart';
 
 import './game_detail_controller.dart';
-import 'widgets/favorite_button_widget.dart';
 import 'widgets/game_item_detail.dart';
 import 'widgets/list_videos_widget.dart';
 import 'widgets/platforms_widget.dart';
@@ -47,17 +48,17 @@ class _GameDetailPageState extends State<GameDetailPage> {
       floatingActionButton: const SearchGamesWidget(),
       appBar: AppBar(
         title: const Text('Detalhes do jogo'),
-        actions: [
-          Obx(() {
-            if (controller.game.value != null) {
-              return FavoriteButtonWidget(
-                state: controller.gameState,
-                toggleFavorite: controller.toggleFavorite,
-              );
-            }
-            return const SizedBox.shrink();
-          })
-        ],
+        // actions: [
+        //   Obx(() {
+        //     if (controller.game.value != null) {
+        //       return FavoriteButtonWidget(
+        //         state: controller.gameState,
+        //         toggleFavorite: controller.toggleFavorite,
+        //       );
+        //     }
+        //     return const SizedBox.shrink();
+        //   })
+        // ],
       ),
       body: Obx(() {
         if (controller.loading.value) {
@@ -162,29 +163,13 @@ class _GameDetailPageState extends State<GameDetailPage> {
                 children: [
                   SelectableText(controller.game.value!.name,
                       style: const TextStyle(fontSize: 24)),
-                  if (controller.gameState != null)
-                    GameStateWidget(
-                      onChange: controller.changeGameState,
-                      state: controller.gameState!,
-                    ),
-                  // if ([GameState.finished, GameState.platinum]
-                  //     .contains(controller.gameState)) ...[
-                  //   FastFormField(
-                  //     controller: yearController,
-                  //     label: 'Ano',
-                  //     onChanged: (v) {
-                  //       if (v.length == 4) {
-                  //         controller.saveYear(v);
-                  //       }
-                  //     },
-                  //     textInputType: TextInputType.number,
-                  //     validator: Zod().optional().min(4).max(4).build,
-                  //     mask: [
-                  //       Mask.generic(masks: ['####'])
-                  //     ],
-                  //   ),
-                  //   const SizedBox(height: 20),
-                  // ],
+                  SearchSelect<GameItemListModel>(
+                    selectedItems: controller.gameState ?? [],
+                    onChange: controller.changeGameState,
+                    label: 'Estado do jogo',
+                    items: UserSettingsController.i.states,
+                  ),
+                  const SizedBox(height: 20),
                   SelectableText(
                     controller.game.value!.summary,
                     textAlign: TextAlign.justify,

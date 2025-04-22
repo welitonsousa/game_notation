@@ -35,12 +35,16 @@ class GameRepositoryImpl implements GameRepository {
   }
 
   @override
-  Stream<List<GameSmallModel>>? gamesStream() {
+  Stream<List<GameSmallModel?>>? gamesStream() {
     final uid = auth.currentUser?.uid;
     if (uid == null) return null;
-    final res = storage.collection(uid).snapshots().map((query) =>
-        query.docs.map((doc) => GameSmallModel.fromJson(doc.data())).toList());
-    return res;
+
+    return storage.collection(uid).snapshots().map((query) {
+      return query.docs.map((doc) {
+        if (doc.id == 'settings') return null;
+        return GameSmallModel.fromJson(doc.data());
+      }).toList();
+    });
   }
 
   @override

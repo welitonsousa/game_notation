@@ -20,51 +20,30 @@ class GameCardWidget extends StatelessWidget {
         );
       },
       child: Card(
-        child: Stack(
+        child: Column(
           children: [
-            Column(
-              children: [
-                if (game.cover != null)
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
-                    child: AppImageCached(
-                      path: game.cover!.imageId.imageCoverURL,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 160,
-                    ),
-                  )
-                else
-                  const SizedBox.shrink(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    game.name,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+            if (game.cover != null)
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 ),
-              ],
-            ),
-            if (game.state != null)
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(1000),
-                        topRight: Radius.circular(200),
-                      ),
-                    ),
-                    child: Icon(
-                      game.state!.icon,
-                      color: Colors.white,
-                    )),
+                child: AppImageCached(
+                  path: game.cover!.imageId.imageCoverURL,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 160,
+                ),
+              )
+            else
+              const SizedBox.shrink(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                game.name,
+                overflow: TextOverflow.ellipsis,
               ),
+            ),
           ],
         ),
       ),

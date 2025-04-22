@@ -9,7 +9,7 @@ class GameServiceImpl implements GameService {
   GameServiceImpl({required this.gameRepository});
 
   @override
-  Stream<List<GameSmallModel>>? gamesStream() {
+  Stream<List<GameSmallModel?>>? gamesStream() {
     return gameRepository.gamesStream();
   }
 

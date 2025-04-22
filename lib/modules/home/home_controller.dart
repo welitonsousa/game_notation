@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:game_notion/models/enum/game_state_enum.dart';
+import 'package:game_notion/models/game_item_list_model.dart';
 import 'package:game_notion/models/game_small_model.dart';
 import 'package:game_notion/remote/services/games/games_sevice.dart';
 import 'package:get/get.dart';
@@ -20,12 +20,9 @@ class HomeController extends GetxController {
   final pageViewController = PageController(initialPage: INITIAl_PAGE);
 
   final allGames = <GameSmallModel>[].obs;
-  List<GameSmallModel> games(GameState state) {
+  List<GameSmallModel> games(GameItemListModel state) {
     var list = allGames.where((g) {
-      if (state == GameState.finished && g.state == GameState.platinum) {
-        return true;
-      }
-      return g.state == state;
+      return g.state.contains(state.id);
     });
     list = list.where((g) {
       return g.name.toLowerCase().contains(localFilter.value.toLowerCase());
@@ -48,7 +45,7 @@ class HomeController extends GetxController {
   void openSteamGamesList() {
     final s = gameService.gamesStream();
     s?.listen((g) {
-      allGames.assignAll(g);
+      allGames.assignAll(g.nonNulls);
       loading.value = false;
     });
   }

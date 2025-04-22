@@ -24,7 +24,7 @@ class _HomePageState extends AppState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     return Obx(() {
       final state = UserSettingsController.i.states[controller.page.value];
-      final label = state.label;
+      final label = state.name;
       final title = '$label (${controller.games(state).length})';
       return Scaffold(
         onDrawerChanged: (isOpened) {
@@ -105,8 +105,8 @@ class _HomePageState extends AppState<HomePage, HomeController> {
             items: UserSettingsController.instance.settings.gameStates.map((e) {
               return BottomNavigationBarItem(
                 icon: Icon(e.icon),
-                label: e.label,
-                tooltip: e.label,
+                label: e.name,
+                tooltip: e.name,
               );
             }).toList(),
           ),

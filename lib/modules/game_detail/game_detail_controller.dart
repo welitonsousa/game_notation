@@ -1,4 +1,4 @@
-import 'package:game_notion/models/enum/game_state_enum.dart';
+import 'package:game_notion/models/game_item_list_model.dart';
 import 'package:game_notion/models/game_model.dart';
 import 'package:game_notion/modules/home/home_controller.dart';
 import 'package:game_notion/remote/services/games/games_sevice.dart';
@@ -15,11 +15,11 @@ class GameDetailController extends GetxController {
   late final int gameId;
   final game = Rxn<GameModel>();
 
-  GameState? get gameState {
+  List<GameItemListModel>? get gameState {
     final index =
         homeController.allGames.indexWhere((e) => e.id == game.value?.id);
     if (index == -1) return null;
-    return homeController.allGames[index].state;
+    return homeController.allGames[index].itemsList;
   }
 
   final loading = true.obs;
@@ -44,22 +44,10 @@ class GameDetailController extends GetxController {
     super.onInit();
   }
 
-  void toggleFavorite() {
-    if (game.value == null) return;
-    if (gameState != null) {
-      game.value!.state = null;
-      gameService.removeGame(id: game.value!.id);
-    } else {
-      game.value!.state = GameState.wishlist;
-      gameService.saveGame(game: game.value!.toSmallModel());
-    }
-    game.refresh();
-  }
-
-  Future<void> changeGameState(GameState state) async {
+  Future<void> changeGameState(List<GameItemListModel> states) async {
     if (game.value == null) return;
 
-    game.value!.state = state;
+    game.value!.state = states.map((e) => e.id).toList();
     await gameService.saveGame(game: game.value!.toSmallModel());
   }
 }

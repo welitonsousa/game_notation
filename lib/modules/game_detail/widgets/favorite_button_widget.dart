@@ -1,11 +1,11 @@
 import 'package:fast_ui_kit/icons/icons.dart';
 import 'package:fast_ui_kit/ui/widgets/animate.dart';
 import 'package:flutter/material.dart';
-import 'package:game_notion/models/enum/game_state_enum.dart';
+import 'package:game_notion/models/game_item_list_model.dart';
 import 'package:get/get.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
-  final GameState? state;
+  final GameItemListModel? state;
   final Function() toggleFavorite;
   const FavoriteButtonWidget({
     super.key,
